@@ -36,5 +36,5 @@ export const aiTemplates:Template[] = [
 export const templates:Template[] = [...motionTemplates,...aiTemplates,...festivalTemplates,...originalTemplates];
 export function isTemplateId(id:unknown):id is string{return typeof id==='string'&&templates.some(t=>t.id===id)}
 export function matchesOccasion(t:Template,occasion:string){return occasion==='All occasions'||t.category===occasion||t.festival===occasion}
-export type Greeting = {templateId:string;name:string;message:string;sender:string;bg:string;font:string;layout:string;branding:boolean;photo?:string};
+export type Greeting = {templateId:string;name:string;message:string;sender:string;bg:string;font:string;layout:string;branding:boolean;photo?:string;heading?:string;headingColor?:string;textColor?:string;headingSize?:number;messageSize?:number;textAlign?:'left'|'center'|'right';photoPlacement?:'top'|'bottom'|'left'|'right'|'middle'|'in-message'|'after-message';photoSize?:number;photoShape?:'circle'|'rounded'|'square';photoZoom?:number;photoX?:number;photoY?:number};
 export const defaultGreeting=(t:Template):Greeting=>({templateId:t.id,name:'',message:t.message,sender:'',bg:t.bg,font:t.font||'Georgia',layout:'square',branding:true});

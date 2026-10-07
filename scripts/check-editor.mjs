@@ -1,0 +1,27 @@
+import fs from 'node:fs';
+import assert from 'node:assert/strict';
+import ts from 'typescript';
+const asModule=source=>'data:text/javascript;base64,'+Buffer.from(ts.transpileModule(source,{compilerOptions:{module:ts.ModuleKind.ESNext,target:ts.ScriptTarget.ES2022}}).outputText).toString('base64');
+const templateUrl=asModule(fs.readFileSync('lib/templates.ts','utf8'));
+const {templates,defaultGreeting}=await import(templateUrl);
+const source=fs.readFileSync('lib/greeting-schema.ts','utf8').replace("'./templates'",JSON.stringify(templateUrl)).replace("'zod'",JSON.stringify(import.meta.resolve('zod')));
+const {greetingSchema}=await import(asModule(source));
+const {drawEditable}=await import(asModule(fs.readFileSync('lib/editor-layout.ts','utf8')));
+const base=defaultGreeting(templates[0]);
+assert(greetingSchema.safeParse(base).success,'Old greetings must remain valid');
+const edited={...base,heading:'Warm wishes\nfor your family',headingColor:'#123456',textColor:'#abcdef',headingSize:130,messageSize:46,textAlign:'left',photoPlacement:'right',photoSize:360,photoShape:'rounded',photoZoom:2.5,photoX:100,photoY:0};
+assert.deepEqual(greetingSchema.parse(JSON.parse(JSON.stringify(edited))),edited,'All edit options must survive saved payload validation');
+for(const bad of [{headingSize:999},{messageSize:0},{photoSize:-1},{photoZoom:0},{photoX:101},{textColor:'red'},{photoPlacement:'elsewhere'},{heading:'x'.repeat(91)}])assert(!greetingSchema.safeParse({...base,...bad}).success,'Reject invalid option '+JSON.stringify(bad));
+globalThis.Image=class{width=1200;height=800;set src(value){queueMicrotask(()=>this.onload())}};
+for(const h of [1080,1440])for(const placement of ['top','bottom','left','right','middle','in-message','after-message']){
+  assert.equal(greetingSchema.parse({...base,photoPlacement:placement}).photoPlacement,placement,'Every placement must survive saving');
+  const draws=[],photos=[];
+  const c={font:'',fillStyle:'',textAlign:'',save(){},restore(){},beginPath(){},arc(){},roundRect(){},rect(){},clip(){},measureText(text){return {width:[...text].length*parseFloat(this.font)*.55}},fillText(text,x,y){draws.push({text,x,y,size:parseFloat(this.font)})},drawImage(...args){photos.push(args)}};
+  await drawEditable(c,templates[0],{...edited,photo:'test',photoPlacement:placement,message:'A'.repeat(200),name:'B'.repeat(35),sender:'C'.repeat(35)},h,'#123456');
+  assert(draws.every(d=>Number.isFinite(d.x)&&Number.isFinite(d.y)&&d.y<h-85),'Text must fit inside card');
+  const [,sx,sy,sw,sh,px,py,pw,ph]=photos[0];
+  assert(sx>=0&&sy>=0&&sx+sw<=1200&&sy+sh<=800,'Crop must stay in source photo');
+  assert(px>=0&&py>=0&&px+pw<=1080&&py+ph<=h,'Photo must stay inside card');
+  if(['middle','in-message','after-message'].includes(placement))assert(draws.every(d=>d.y+d.size<=py||d.y>=py+ph),'Inline photo must not overlap any text');
+}
+console.log('Editor checks passed: legacy payloads, style persistence, validation, and photo/text bounds in both sizes.');

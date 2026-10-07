@@ -1,0 +1,45 @@
+.compact-editor.editor-modal{display:flex;flex-direction:column;height:min(800px,94dvh);max-height:94dvh;padding:22px!important;gap:10px;overflow:hidden}
+.compact-editor>h2{padding-right:28px;font-size:20px;line-height:1.3}
+.compact-editor>p{font-size:14px;margin:0}
+.compact-editor .editor-grid{flex:1;min-height:0;margin-top:6px;gap:22px;grid-template-columns:minmax(0,1fr) minmax(0,1fr);overflow:hidden}
+.compact-editor .preview-panel{position:static;min-width:0;padding:14px;width:100%;margin:0;max-height:100%;overflow:auto}
+.compact-editor .preview-panel canvas{max-height:52dvh;width:auto;max-width:100%;margin:auto;object-fit:contain}
+.compact-editor .preview-panel>span{font-size:12px;line-height:1.4;margin-top:8px}
+.compact-editor .editor-controls{min-height:0;min-width:0;gap:10px;overflow:hidden}
+.editor-tabs{display:flex;gap:4px;background:#edf0e8;border-radius:8px;padding:4px;flex-shrink:0}
+.editor-tabs button{flex:1;min-height:40px;font-size:14px;border-radius:6px}
+.editor-tabs button[aria-pressed=true]{background:white;color:#254f43;box-shadow:0 1px 4px #253b3520;font-weight:600}
+.editor-fields{flex:1;min-height:0;overflow:auto;overscroll-behavior:contain;padding:3px 5px 8px 2px;scrollbar-width:thin}
+.edit-section{display:flex;flex-direction:column;gap:14px;min-width:0}
+.edit-section[hidden]{display:none}
+.editor-bottom{flex-shrink:0;border-top:1px solid #e1e6dc;padding-top:10px;background:#fff}
+.compact-editor .editor-actions{margin-top:8px;padding-top:0;border:0;gap:8px}
+.compact-editor .editor-actions button{flex:1;min-height:44px;padding:10px 8px}
+.compact-editor .option-fields{gap:12px;padding:0 12px 12px}
+.compact-editor .editor-options summary{padding:12px}
+.text-colour-controls{display:grid;gap:12px;min-width:0}
+.compact-editor .colour-field{display:flex;flex-direction:row;align-items:center;justify-content:space-between;gap:10px}
+.compact-editor .colour-field input[type=color]{width:36px;min-width:36px;height:32px;padding:2px}
+.compact-editor .text-swatches{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}
+.compact-editor .text-swatches button{flex:0 0 32px;width:32px;min-width:32px;max-width:32px;height:32px;min-height:32px;aspect-ratio:1;padding:0;border-radius:50%}
+.photo-hint{font-size:14px;line-height:1.6;color:#66735f}
+.compact-editor .export-controls{overflow:auto;padding-right:4px;overscroll-behavior:contain}
+.preview-size-toggle{display:none}
+@media(max-width:650px){
+ .compact-editor.editor-modal{width:100%!important;max-width:100%!important;height:100dvh;max-height:100dvh;border-radius:0;border:0;padding:14px!important;gap:6px}
+ .compact-editor>h2{font-size:18px}.compact-editor>p{font-size:13px}
+ .compact-editor .editor-grid{display:flex;flex-direction:column;gap:10px;margin-top:4px}
+ .compact-editor .preview-panel{flex-shrink:0;display:grid;grid-template-columns:108px minmax(0,1fr);gap:4px 12px;padding:8px;max-width:none;align-items:center;overflow:hidden}
+ .compact-editor .preview-panel canvas{grid-column:1;grid-row:1/5;width:auto;max-width:108px;max-height:144px;margin:auto}
+ .compact-editor .preview-panel>span{grid-column:2;text-align:left;margin:0;font-size:12px}
+ .compact-editor .preview-motion{grid-column:2;margin:0;text-align:left;padding:4px 0;font-size:13px}
+ .compact-editor .preview-size-toggle{display:block;grid-column:2;text-align:left;font-size:13px;text-decoration:underline;min-height:32px}
+ .compact-editor.large-preview .preview-panel{grid-template-columns:minmax(0,1fr) 100px}
+ .compact-editor.large-preview .preview-panel canvas{max-width:100%;max-height:30dvh}
+ .compact-editor .editor-controls{flex:1;gap:8px}
+ .compact-editor .editor-controls input:not([type=color]):not([type=range]),.compact-editor .editor-controls textarea,.compact-editor .editor-controls select{font-size:16px}
+ .compact-editor .editor-controls label{font-size:14px}
+ .compact-editor .two-controls{gap:10px;grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+ .compact-editor .editor-bottom{padding-bottom:env(safe-area-inset-bottom,0px)}
+ .compact-editor .switch-label{min-height:28px}
+}
