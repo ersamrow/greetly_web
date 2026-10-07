@@ -1,5 +1,0 @@
-User-agent: *
-Disallow: /g/
-Disallow: /api/
-Disallow: /admin
-Disallow: /privacy

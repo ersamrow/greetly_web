@@ -19,8 +19,9 @@ export function textLines(c:CanvasRenderingContext2D,text:string,width:number){
 }
 
 export async function drawEditable(c:CanvasRenderingContext2D,t:Template,g:Greeting,h:number,defaultColor:string){
-  let left=150,right=930,top=240,bottom=h-150;
-  const size=g.photoSize??220,placement=g.photoPlacement??'top';
+  if(t.photoArtwork)h-=480;
+  let left=150,right=930,top=t.photoArtwork?130:240,bottom=h-(t.photoArtwork?30:150);
+  const size=t.photoArtwork?Math.min(g.photoSize??220,140):g.photoSize??220,placement=g.photoPlacement??'top';
   const inline=!!g.photo&&['middle','in-message','after-message'].includes(placement);
   const paintPhoto=async(px:number,py:number)=>{
     const image=await new Promise<HTMLImageElement>((resolve,reject)=>{const im=new Image();im.onload=()=>resolve(im);im.onerror=()=>reject(Error('Could not load your photo'));im.src=g.photo!});
@@ -60,5 +61,5 @@ export async function drawEditable(c:CanvasRenderingContext2D,t:Template,g:Greet
   c.textAlign=align;c.textBaseline='top';let y=top;
   for(const block of blocks){if(block.photo){await paintPhoto(540-size/2,y);y+=size+block.gap;continue}c.font=`${block.size}px ${g.font}`;c.fillStyle=block.color;for(const line of block.lines){c.fillText(line,x,y);y+=block.size*1.25}y+=block.gap}
   c.textAlign='center';c.textBaseline='alphabetic';c.fillStyle=g.textColor??defaultColor;c.font='18px Arial';
-  c.fillText(t.festival==='Dussehra'?'CELEBRATING THE TRIUMPH OF GOOD':t.festival==='Diwali'?'A SEASON OF LOVE AND LIGHT':'A LITTLE SOMETHING, JUST FOR YOU',540,85,790);
+  c.fillText(t.kicker|| (t.festival==='Dussehra'?'CELEBRATING THE TRIUMPH OF GOOD':t.festival==='Diwali'?'A SEASON OF LOVE AND LIGHT':'A LITTLE SOMETHING, JUST FOR YOU'),540,85,790);
 }

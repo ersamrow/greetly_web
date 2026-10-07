@@ -1,9 +1,11 @@
-export const occasions = ['All occasions','Birthday','Anniversary','Thank you','Daily greetings','Festivals','Dussehra','Diwali'];
+import {faithTemplates} from './faith-templates';
+import type {Faith} from './faith-templates';
+export const occasions = ['All occasions','Birthday','Anniversary','Thank you','Daily greetings','Festivals','Dussehra','Diwali','Faith & blessings'];
 export const palettes = [['#ffeedb','#a6422b'],['#ecb6cd','#76243d'],['#cfddf2','#274582'],['#d7e3cd','#345a42'],['#322a54','#f8de9a'],['#f9d55c','#604018']];
 const titles = ['A little celebration','Made of sunshine','With all my heart','The good things','A beautiful chapter','A wish for you','Simply wonderful','Love, always','Golden moments','Just because','A brighter day','Something special'];
 const headings = ['Happy\nbirthday!','Here’s to\nyou two.','You make\na difference.','Hello,\nsunshine.','Light up\nthe moment.'];
 export const messages = ['Another year of you making the world a little brighter. Have the happiest birthday!','To all the memories you’ve made, and all the beautiful ones still to come. Happy anniversary!','A little note for a big thank you. Your kindness means more than you know.','Here’s to a fresh start, little joys, and a day that feels like you.','May this season bring light to your home, warmth to your heart, and joy to everyone you love.'];
-export type Template = {id:string;name:string;category:string;heading:string;message:string;bg:string;ink:string;pattern:number;festival?:'Dussehra'|'Diwali';artwork?:string;font?:string;motion?:'sparkle'|'confetti'|'glow';aiArt?:boolean};
+export type Template = {id:string;name:string;category:string;heading:string;message:string;bg:string;ink:string;pattern:number;festival?:'Dussehra'|'Diwali';artwork?:string;photoArtwork?:string;photoCredit?:string;font?:string;motion?:'sparkle'|'confetti'|'glow';aiArt?:boolean;faith?:Faith;occasion?:string;kicker?:string};
 const originalTemplates:Template[] = Array.from({length:60},(_,i)=>{const c=Math.floor(i/12),p=palettes[(i+c+Math.floor((i%12)/6)*2)%6];return {id:`g${i+1}`,name:titles[i%12],category:occasions[c+1],heading:c===4?['Happy\nDiwali!','Colours\nof joy.','A bright\nnew year.'][i%3]:headings[c],message:messages[c],bg:p[0],ink:p[1],pattern:i%6};});
 export const festivalTemplates:Template[] = [
   {id:'dussehra-marigold',name:'Marigold wishes',festival:'Dussehra',category:'Festivals',heading:'Happy\nDussehra!',message:'May goodness guide your way and courage fill your heart. Wishing you and your family a joyful Dussehra.',bg:'#fff0d9',ink:'#813a21',pattern:-1,artwork:'/festivals/dussehra.webp'},
@@ -33,7 +35,7 @@ export const aiTemplates:Template[] = [
   {...festivalTemplates[6],id:'ai-diwali-dream',name:'Dreams in diya light',aiArt:true,artwork:'/posts/diwali-dream.webp',bg:'#171938',ink:'#ffe6a7',pattern:-1},
   {...festivalTemplates[7],id:'ai-diwali-glow',name:'An enchanted Diwali',aiArt:true,artwork:'/posts/diwali-dream.webp',bg:'#171938',ink:'#ffe6a7',pattern:-1,motion:'sparkle'},
 ];
-export const templates:Template[] = [...motionTemplates,...aiTemplates,...festivalTemplates,...originalTemplates];
+export const templates:Template[] = [...faithTemplates,...motionTemplates,...aiTemplates,...festivalTemplates,...originalTemplates];
 export function isTemplateId(id:unknown):id is string{return typeof id==='string'&&templates.some(t=>t.id===id)}
 export function matchesOccasion(t:Template,occasion:string){return occasion==='All occasions'||t.category===occasion||t.festival===occasion}
 export type Greeting = {templateId:string;name:string;message:string;sender:string;bg:string;font:string;layout:string;branding:boolean;photo?:string;heading?:string;headingColor?:string;textColor?:string;headingSize?:number;messageSize?:number;textAlign?:'left'|'center'|'right';photoPlacement?:'top'|'bottom'|'left'|'right'|'middle'|'in-message'|'after-message';photoSize?:number;photoShape?:'circle'|'rounded'|'square';photoZoom?:number;photoX?:number;photoY?:number};

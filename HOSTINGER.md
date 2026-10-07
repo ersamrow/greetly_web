@@ -46,3 +46,22 @@ Run `npm run test:hostinger` for adapter tests with a mocked MySQL driver. These
 verify query parameters, photo bytes, and configuration, but do not replace a
 live database check. After deploying, create a greeting with a photo, open its
 share link, then delete it to verify database access and the imported schema.
+
+## Search engine configuration
+
+The default public origin is `https://greetly.myledgerpro.in`. Set `SITE_URL`
+before building only if this changes. Use an HTTP(S) origin without a path,
+query string, or credentials. Rebuild and redeploy after changing the domain;
+the homepage, robots file, and sitemap are generated during the build.
+
+`/sitemap.xml` lists the homepage and every occasion collection. `/robots.txt`
+advertises that sitemap and excludes API paths. Personal greeting pages,
+administration, and the device-specific privacy controls use `noindex` metadata;
+their HTML remains crawlable so search engines can read that instruction.
+These rules do not provide access control.
+
+Run `node scripts/test-seo.mjs` for metadata and sitemap checks. After deploying,
+verify the domain in Google Search Console and submit
+`https://greetly.myledgerpro.in/sitemap.xml`. Inspect the homepage and an occasion
+URL to confirm that Google sees the intended canonical and indexability.
+Search Console verification and submission require the site's owner account.

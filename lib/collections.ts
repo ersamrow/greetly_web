@@ -1,4 +1,5 @@
 export const collections:Record<string,{category:string;message:string;suggestions?:string[];date?:string}>={
+  faith:{category:'Faith & blessings',message:'Share a thoughtful greeting for Sikh, Hindu, Muslim, Christian, Buddhist, and Jain occasions. Choose a tradition, then add your own words and a personal photo.',suggestions:['May your home be filled with peace and your days with kindness.','Sending warm wishes to you and your family on this special occasion.','May faith, gratitude, and compassion bring light to your day.']},
   birthday:{category:'Birthday',message:'Celebrate what makes them special. Mention a favourite memory, a quality you admire, or something you hope the next year brings them.'},
   anniversary:{category:'Anniversary',message:'Celebrate the life they’re building together. A shared memory or a wish for the years ahead makes an anniversary greeting feel personal.'},
   'thank-you':{category:'Thank you',message:'Name the thing you’re grateful for and how it helped you. A specific, simple thank-you often means more than a long message.'},

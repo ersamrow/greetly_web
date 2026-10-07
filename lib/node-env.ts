@@ -67,6 +67,7 @@ const photos = {
 };
 
 export const env = {
+  get SITE_URL() { return process.env.SITE_URL; },
   DB: { prepare },
   BUCKET: photos,
   get ADMIN_TOKEN() { return process.env.ADMIN_TOKEN; },
