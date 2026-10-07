@@ -65,3 +65,15 @@ verify the domain in Google Search Console and submit
 `https://greetly.myledgerpro.in/sitemap.xml`. Inspect the homepage and an occasion
 URL to confirm that Google sees the intended canonical and indexability.
 Search Console verification and submission require the site's owner account.
+
+## Copy/share requests behind the hosting proxy
+
+The API accepts the configured `SITE_URL` origin as well as the request URL's
+own origin. This allows public HTTPS requests when the hosting proxy passes an
+internal HTTP URL to Next.js. The default is `https://greetly.myledgerpro.in`;
+if overriding `SITE_URL`, use that exact public origin, without a trailing path.
+Unrelated origins and caller-supplied forwarding headers do not grant access.
+
+Run `node scripts/test-request-origin.mjs` to test proxy requests, hostile
+origins, and the greeting/analytics handlers with mocked storage. Deploy and
+restart the updated server to apply this fix; it is not a browser-cache change.

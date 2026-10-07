@@ -1,0 +1,25 @@
+'use client';
+import {useState} from 'react';
+import {ArrowRight,Bookmark,ImageIcon,Trash2} from 'lucide-react';
+import {Dialog,DialogContent,DialogTitle,DialogDescription} from '@/components/ui/dialog';
+import {templates, type Greeting, type Template} from '@/lib/templates';
+import Card from './card';
+import './drafts.css';
+
+export default function Drafts({open,onOpenChange,drafts,onEdit,onRemove}:{open:boolean;onOpenChange:(open:boolean)=>void;drafts:Greeting[];onEdit:(template:Template,draft:Greeting)=>void;onRemove:(index:number)=>boolean}){
+  const [removing,setRemoving]=useState<number|null>(null);
+  return <Dialog open={open} onOpenChange={value=>{setRemoving(null);onOpenChange(value)}}><DialogContent className="drafts-modal">
+    <div className="drafts-heading"><span className="drafts-icon"><Bookmark size={22}/></span><div><DialogTitle>My drafts <span className="drafts-count">{drafts.length}</span></DialogTitle><DialogDescription>Your words, saved for later. Pick up where you left off.</DialogDescription></div></div>
+    {drafts.length?<><div className="drafts-summary"><span>Recently saved</span><span>{drafts.length} of 8 spaces used</span></div><div className="drafts-list">{drafts.map((draft,index)=>{
+      const template=templates.find(t=>t.id===draft.templateId);
+      const title=template?.name||'Unavailable design';
+      return <article className="draft-item" key={draft.templateId+'-'+index}>
+        <button className="draft-thumbnail" disabled={!template} aria-label={'Edit '+title} onClick={()=>{setRemoving(null);onEdit(template!,draft)}}>{template?<Card template={template} greeting={draft} paused/>:<ImageIcon aria-hidden="true"/>}</button>
+        <div className="draft-details"><div className="draft-tags"><span>{template?.faith||template?.festival||template?.category||'Saved greeting'}</span><span>{draft.layout==='vertical'?'Portrait':'Square'}{template?.motion?' · Animated':''}</span></div><h3>{title}</h3><p className="draft-recipient">{draft.name?'For '+draft.name:'Add a recipient when you’re ready'}</p><p className="draft-message">{draft.message}</p>
+        {removing===index?<div className="draft-confirm" role="group" aria-label={'Delete '+title+'?'}><p>Delete this draft?</p><button className="secondary" onClick={()=>setRemoving(null)}>Keep draft</button><button className="draft-delete-confirm" onClick={()=>{if(onRemove(index))setRemoving(null)}}>Delete draft</button></div>:<div className="draft-actions"><button className="draft-resume" disabled={!template} onClick={()=>{setRemoving(null);onEdit(template!,draft)}}>Continue editing <ArrowRight size={16}/></button><button className="draft-delete" aria-label={'Delete '+title} onClick={()=>setRemoving(index)}><Trash2 size={17}/></button></div>}
+        {!template&&<p className="draft-unavailable">This design is no longer available.</p>}</div>
+      </article>;
+    })}</div></>:<div className="drafts-empty"><span><Bookmark size={32}/></span><h3>A little inspiration, ready to save.</h3><p>Choose a design, make it yours, then tap <strong>Save draft</strong> in the editor. Your unfinished greetings will appear here.</p><button className="primary" onClick={()=>onOpenChange(false)}>Explore cards <ArrowRight size={17}/></button></div>}
+    <div className="drafts-footer">Saved in this browser on this device. Clearing browser data removes your drafts.</div>
+  </DialogContent></Dialog>;
+}

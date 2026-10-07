@@ -6,13 +6,13 @@
 .compact-editor .preview-panel canvas{max-height:52dvh;width:auto;max-width:100%;margin:auto;object-fit:contain}
 .compact-editor .preview-panel>span{font-size:12px;line-height:1.4;margin-top:8px}
 .compact-editor .editor-controls{min-height:0;min-width:0;gap:10px;overflow:hidden}
-.editor-tabs{display:flex;gap:4px;background:#edf0e8;border-radius:8px;padding:4px;flex-shrink:0}
+.editor-tabs{display:flex;gap:4px;background:#f6f6f4;border-radius:8px;padding:4px;flex-shrink:0}
 .editor-tabs button{flex:1;min-height:40px;font-size:14px;border-radius:6px}
-.editor-tabs button[aria-pressed=true]{background:white;color:#254f43;box-shadow:0 1px 4px #253b3520;font-weight:600}
+.editor-tabs button[aria-pressed=true]{background:white;color:#020817;box-shadow:0 1px 4px #02081720;font-weight:600}
 .editor-fields{flex:1;min-height:0;overflow:auto;overscroll-behavior:contain;padding:3px 5px 8px 2px;scrollbar-width:thin}
 .edit-section{display:flex;flex-direction:column;gap:14px;min-width:0}
 .edit-section[hidden]{display:none}
-.editor-bottom{flex-shrink:0;border-top:1px solid #e1e6dc;padding-top:10px;background:#fff}
+.editor-bottom{flex-shrink:0;border-top:1px solid #f6f6f4;padding-top:10px;background:#fff}
 .compact-editor .editor-actions{margin-top:8px;padding-top:0;border:0;gap:8px}
 .compact-editor .editor-actions button{flex:1;min-height:44px;padding:10px 8px}
 .compact-editor .option-fields{gap:12px;padding:0 12px 12px}
@@ -22,7 +22,7 @@
 .compact-editor .colour-field input[type=color]{width:36px;min-width:36px;height:32px;padding:2px}
 .compact-editor .text-swatches{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}
 .compact-editor .text-swatches button{flex:0 0 32px;width:32px;min-width:32px;max-width:32px;height:32px;min-height:32px;aspect-ratio:1;padding:0;border-radius:50%}
-.photo-hint{font-size:14px;line-height:1.6;color:#66735f}
+.photo-hint{font-size:14px;line-height:1.6;color:#60636b}
 .compact-editor .export-controls{overflow:auto;padding-right:4px;overscroll-behavior:contain}
 .preview-size-toggle{display:none}
 @media(max-width:650px){

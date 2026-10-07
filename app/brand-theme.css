@@ -1,0 +1,23 @@
+/* Shared My Ledger Pro brand tokens, independent of card artwork. */
+:root{--background:#ffFAf8;--foreground:#020817;--card-foreground:#020817;--popover-foreground:#020817;--primary:#d82f50;--primary-foreground:#fff;--secondary:#f6f6f4;--secondary-foreground:#020817;--muted:#f6f6f4;--muted-foreground:#60636b;--accent:#fce8ed;--accent-foreground:#a71e3a;--border:#e5e7eb;--input:#d1d5db;--ring:#d82f50}
+body{background:#fffaf8;color:#020817}
+.brand-lockup{display:flex;flex-direction:column;align-items:flex-start;flex-shrink:0;gap:1px}
+.brand-lockup .brand{line-height:1.05}
+.brand-parent{font-size:11px;font-weight:500;letter-spacing:.1px;color:#60636b;line-height:1.5}
+.brand-parent:hover{color:#d82f50;text-decoration:underline}
+.brand .brand-mark,.brand-dot,h1>span{color:#d82f50}
+.header .brand,.library-top h2,.inspiration>h2,.suggestions h3,.collection-guide h2,.empty h2,.compact-editor>h2,h1{font-family:inherit;font-weight:700}
+.header .brand{letter-spacing:-1px}.nav-active{border-color:#d82f50}
+.eyebrow,.intro .eyebrow{color:#b52342}.eyebrow span{background:#d82f50}
+.primary,.categories button.active,.template:hover .card-action,.template:focus-visible .card-action{background:#d82f50;border-color:#d82f50;color:white}
+.primary:hover{background:#b92341;border-color:#b92341}
+.categories button:not(.active):hover,.suggestions a:hover{background:#fff0f3;border-color:#e8a9b6}
+.design-types,.editor-tabs{background:#f6f6f4}
+.design-types button[aria-pressed=true],.editor-tabs button[aria-pressed=true]{background:#fce8ed;color:#a71e3a}
+.header .install,.compact-editor .preview-panel,.editor-options{background:#fff;border-color:#e5e7eb}
+.editor-controls input[type=range]{accent-color:#d82f50}
+.text-swatches button[aria-pressed=true],.colours button[aria-pressed=true]{outline-color:#d82f50}
+button:focus-visible,a:focus-visible,.search:focus-within,.editor-controls input:focus,.editor-controls textarea:focus{outline-color:#d82f50}
+.search:focus-within{border-color:#d82f50}
+.count{background:#fce8ed;color:#a71e3a}
+@media(max-width:480px){.header{gap:8px}.header .brand-lockup .brand{font-size:26px}.brand-parent{font-size:10px}.header nav{gap:8px}.header nav button{font-size:12px}}
