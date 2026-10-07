@@ -1,5 +1,5 @@
 import {isTemplateId} from '@/lib/templates';
-import {env} from 'cloudflare:workers';
+import {env} from '@/lib/runtime-env';
 import {z} from 'zod';
 export const greetingSchema=z.object({templateId:z.string().refine(isTemplateId, "Unknown template"),name:z.string().max(35),message:z.string().max(200),sender:z.string().max(35),bg:z.string().regex(/^#[0-9a-fA-F]{6}$/),font:z.enum(['Georgia','Arial','Verdana','Courier New']),layout:z.enum(['square','vertical']),branding:z.boolean(),photo:z.string().max(1500000).regex(/^data:image\/jpeg;base64,[A-Za-z0-9+/=]+$/).optional()});
 export function db(){if(!env.DB)throw Error('Storage unavailable');return env.DB}

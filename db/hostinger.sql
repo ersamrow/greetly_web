@@ -1,0 +1,26 @@
+-- Run once in the database created in Hostinger hPanel (using phpMyAdmin).
+-- Photos are stored in MySQL so they survive app redeployments.
+CREATE TABLE IF NOT EXISTS greetings (
+  id VARCHAR(36) CHARACTER SET ascii COLLATE ascii_bin PRIMARY KEY,
+  payload MEDIUMTEXT NOT NULL,
+  delete_hash CHAR(64) CHARACTER SET ascii NOT NULL,
+  created_at BIGINT NOT NULL,
+  reports INT NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS events (
+  id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  action VARCHAR(64) NOT NULL,
+  template_id VARCHAR(191) NOT NULL,
+  created_at BIGINT NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS published (
+  id VARCHAR(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin PRIMARY KEY,
+  enabled TINYINT NOT NULL DEFAULT 1
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS photos (
+  id VARCHAR(36) CHARACTER SET ascii COLLATE ascii_bin PRIMARY KEY,
+  data MEDIUMBLOB NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

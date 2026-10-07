@@ -1,4 +1,4 @@
-import { env } from 'cloudflare:workers';
+import { env } from '@/lib/runtime-env';
 import { parseAdSenseSettings, type AdSenseSettings } from './adsense-config';
 
 export function getAdSenseSettings() {

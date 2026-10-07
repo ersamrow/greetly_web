@@ -1,5 +1,8 @@
 # vinext-starter
 
+Deploying Greetly on Hostinger? Follow [HOSTINGER.md](./HOSTINGER.md) for the
+Next.js build command and MySQL setup. The default build below targets Sites.
+
 A clean full-stack starter running on [vinext](https://github.com/cloudflare/vinext), with optional Cloudflare D1 and Drizzle support.
 
 ## Prerequisites
