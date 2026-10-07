@@ -5,13 +5,14 @@ Use Hostinger's **Node.js Web App** with these build settings:
 - Framework: **Next.js**
 - Node.js: **22**
 - Package manager: **npm**
-- Build command: **npm run build:hostinger**
+- Build command: **npm run build** (select this in the dropdown)
 - Output directory: **.next**
 - Root directory: the directory containing this package.json
 - Entry file: leave empty for Hostinger's Next.js deployment
 
-The default `npm run build` remains the Vinext/Sites build. It produces `dist`,
-which Hostinger's Next.js deployment cannot use.
+The default `npm run build` runs the Hostinger Next.js build. The alternative
+`npm run build:hostinger` does the same thing. For Vinext/Sites, explicitly run
+`npm run build:sites`; its `dist` output is not for Hostinger's Next.js deployment.
 
 ## Database setup
 
