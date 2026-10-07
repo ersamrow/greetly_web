@@ -3,7 +3,7 @@ export const palettes = [['#ffeedb','#a6422b'],['#ecb6cd','#76243d'],['#cfddf2',
 const titles = ['A little celebration','Made of sunshine','With all my heart','The good things','A beautiful chapter','A wish for you','Simply wonderful','Love, always','Golden moments','Just because','A brighter day','Something special'];
 const headings = ['Happy\nbirthday!','Here’s to\nyou two.','You make\na difference.','Hello,\nsunshine.','Light up\nthe moment.'];
 export const messages = ['Another year of you making the world a little brighter. Have the happiest birthday!','To all the memories you’ve made, and all the beautiful ones still to come. Happy anniversary!','A little note for a big thank you. Your kindness means more than you know.','Here’s to a fresh start, little joys, and a day that feels like you.','May this season bring light to your home, warmth to your heart, and joy to everyone you love.'];
-export type Template = {id:string;name:string;category:string;heading:string;message:string;bg:string;ink:string;pattern:number;festival?:'Dussehra'|'Diwali';artwork?:string;font?:string};
+export type Template = {id:string;name:string;category:string;heading:string;message:string;bg:string;ink:string;pattern:number;festival?:'Dussehra'|'Diwali';artwork?:string;font?:string;motion?:'sparkle'|'confetti'|'glow';aiArt?:boolean};
 const originalTemplates:Template[] = Array.from({length:60},(_,i)=>{const c=Math.floor(i/12),p=palettes[(i+c+Math.floor((i%12)/6)*2)%6];return {id:`g${i+1}`,name:titles[i%12],category:occasions[c+1],heading:c===4?['Happy\nDiwali!','Colours\nof joy.','A bright\nnew year.'][i%3]:headings[c],message:messages[c],bg:p[0],ink:p[1],pattern:i%6};});
 export const festivalTemplates:Template[] = [
   {id:'dussehra-marigold',name:'Marigold wishes',festival:'Dussehra',category:'Festivals',heading:'Happy\nDussehra!',message:'May goodness guide your way and courage fill your heart. Wishing you and your family a joyful Dussehra.',bg:'#fff0d9',ink:'#813a21',pattern:-1,artwork:'/festivals/dussehra.webp'},
@@ -19,7 +19,21 @@ export const festivalTemplates:Template[] = [
   {id:'diwali-rose',name:'Sweet celebrations',festival:'Diwali',category:'Festivals',heading:'Sweet wishes.\nBright Diwali.',message:'Here’s to shared sweets, warm reunions, and all the little things that make Diwali feel like home.',bg:'#f5cccf',ink:'#782c47',pattern:2},
   {id:'diwali-starlight',name:'Starlit wishes',festival:'Diwali',category:'Festivals',heading:'Let your\nlight shine.',message:'May this Diwali bring brighter possibilities, moments of wonder, and a little extra sparkle to your world.',bg:'#252f4b',ink:'#ffe6a7',pattern:3},
 ];
-export const templates:Template[] = [...festivalTemplates,...originalTemplates];
+export const motionTemplates:Template[] = [
+  {...festivalTemplates[0],id:'motion-dussehra-marigold',name:'Marigold celebration',motion:'confetti'},
+  {...festivalTemplates[4],id:'motion-dussehra-glow',name:'A glowing victory',motion:'glow'},
+  {...festivalTemplates[6],id:'motion-diwali-lights',name:'Diwali after dark',motion:'sparkle'},
+  {...festivalTemplates[11],id:'motion-diwali-stars',name:'A sky full of wishes',motion:'glow'},
+  {...originalTemplates[0],id:'motion-birthday-confetti',name:'Make a little noise',motion:'confetti',bg:'#cfddf2',ink:'#274582',pattern:1},
+  {...originalTemplates[36],id:'motion-daily-sparkle',name:'Your daily dose of wonder',motion:'sparkle',bg:'#322a54',ink:'#f8de9a',pattern:3},
+];
+export const aiTemplates:Template[] = [
+  {...festivalTemplates[0],id:'ai-dussehra-paper',name:'Marigold dreamscape',aiArt:true,artwork:'/posts/dussehra-dream.webp',bg:'#fff0d9',ink:'#713522',pattern:-1},
+  {...festivalTemplates[1],id:'ai-dussehra-dream',name:'Golden beginnings',aiArt:true,artwork:'/posts/dussehra-dream.webp',bg:'#fff0d9',ink:'#713522',pattern:-1,motion:'confetti'},
+  {...festivalTemplates[6],id:'ai-diwali-dream',name:'Dreams in diya light',aiArt:true,artwork:'/posts/diwali-dream.webp',bg:'#171938',ink:'#ffe6a7',pattern:-1},
+  {...festivalTemplates[7],id:'ai-diwali-glow',name:'An enchanted Diwali',aiArt:true,artwork:'/posts/diwali-dream.webp',bg:'#171938',ink:'#ffe6a7',pattern:-1,motion:'sparkle'},
+];
+export const templates:Template[] = [...motionTemplates,...aiTemplates,...festivalTemplates,...originalTemplates];
 export function isTemplateId(id:unknown):id is string{return typeof id==='string'&&templates.some(t=>t.id===id)}
 export function matchesOccasion(t:Template,occasion:string){return occasion==='All occasions'||t.category===occasion||t.festival===occasion}
 export type Greeting = {templateId:string;name:string;message:string;sender:string;bg:string;font:string;layout:string;branding:boolean;photo?:string};
