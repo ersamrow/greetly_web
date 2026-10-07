@@ -1,0 +1,2 @@
+import {bucket,db,failure,privateHeaders} from '@/lib/server';
+export async function GET(req:Request,{params}:{params:Promise<{id:string}>}){try{const {id}=await params;const row=await db().prepare('SELECT id FROM greetings WHERE id=?').bind(id).first();if(!row)return new Response(null,{status:404});const file=await bucket().get(id);return file?new Response(file.body,{headers:{...privateHeaders,'Content-Type':'image/jpeg','X-Content-Type-Options':'nosniff'}}):new Response(null,{status:404})}catch(e){return failure(e)}}

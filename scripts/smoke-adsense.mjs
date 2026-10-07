@@ -1,0 +1,15 @@
+import assert from 'node:assert/strict';
+const base='http://127.0.0.1:5173';
+const config=await fetch(base+'/api/adsense');
+assert.equal(config.headers.get('cache-control'),'no-store');
+const data=await config.json();
+assert.equal(data.publisherId,'ca-pub-4905030687832208');
+assert.equal(data.enabled,false);
+const txt=await fetch(base+'/ads.txt');
+assert.equal(txt.status,200);
+assert.equal(await txt.text(),'google.com, pub-4905030687832208, DIRECT, f08c47fec0942fa0\n');
+const html=await (await fetch(base+'/')).text();
+assert.match(html,/name="google-adsense-account" content="ca-pub-4905030687832208"/);
+assert.ok(!html.includes('<ins '),'No inactive ad units rendered');
+assert.ok(!html.includes('src="https://pagead2.googlesyndication.com'),'SDK not loaded by disabled configuration');
+console.log('PASS: configured publisher, verification tag, ads.txt, no-store config, inactive ad units');

@@ -1,0 +1,16 @@
+import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
+import ts from 'typescript';
+const source=readFileSync('lib/adsense-config.ts','utf8');
+const js=ts.transpile(source,{module:ts.ModuleKind.ESNext});
+const {parseAdSenseSettings,adsTxt}=await import('data:text/javascript;base64,'+Buffer.from(js).toString('base64'));
+assert.equal(parseAdSenseSettings({}).enabled,false);
+const settings={ADSENSE_PUBLISHER_ID:'ca-pub-1234567890123456',ADSENSE_DISPLAY_SLOT:'1234567890',ADSENSE_ENABLED:'true',ADSENSE_CONSENT_READY:'true'};
+assert.equal(parseAdSenseSettings(settings).enabled,true);
+assert.equal(parseAdSenseSettings({...settings,ADSENSE_CONSENT_READY:'false'}).enabled,false);
+assert.equal(parseAdSenseSettings({...settings,ADSENSE_ENABLED:'false'}).enabled,false);
+assert.equal(parseAdSenseSettings({...settings,ADSENSE_PUBLISHER_ID:'bad"<script>'}).enabled,false);
+assert.equal(parseAdSenseSettings({...settings,ADSENSE_DISPLAY_SLOT:'bad'}).enabled,false);
+assert.equal(adsTxt(settings.ADSENSE_PUBLISHER_ID),'google.com, pub-1234567890123456, DIRECT, f08c47fec0942fa0\n');
+assert.equal(adsTxt(''),null);
+console.log('PASS: AdSense activation gates, ID validation, ads.txt publisher mapping');
