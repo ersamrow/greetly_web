@@ -17,13 +17,31 @@ The default `npm run build` runs the Hostinger Next.js build. The alternative
 ## Database setup
 
 1. Create a MySQL database and database user in hPanel.
-2. Select that database in phpMyAdmin and import `db/hostinger.sql`.
+2. Note the database connection values for the app's environment settings.
 3. Add these environment variables in the Node.js app's deployment settings:
    `MYSQL_HOST`, `MYSQL_PORT` (usually `3306`), `MYSQL_DATABASE`, `MYSQL_USER`,
    and `MYSQL_PASSWORD`. Copy the actual connection values from hPanel.
 4. Set a strong `ADMIN_TOKEN` for the admin API. Optional AdSense variables
    are listed in `.env.example`; configure these before building.
-5. Deploy the updated source using the build settings above.
+5. Run `npm run db:migrate` from the project directory in an environment that
+   can reach this database. This creates the four application tables and a
+   `greetly_migrations` history table. Existing tables and data are preserved.
+   Alternatively, select the database in phpMyAdmin and import `db/hostinger.sql`.
+6. Deploy the updated source using the build settings above.
+
+The migration command reads `.env` and `.env.local` when present, while keeping
+already-set environment variables. Repeat runs skip completed migrations and
+use a database lock to prevent concurrent migration runs. An interrupted initial
+migration can be retried safely. Do not edit `db/hostinger.sql` after the baseline
+has been recorded; add future migrations as new entries in the migration runner.
+An existing table is not altered or checked for schema compatibility by the
+initial migration. This is table creation, not a Cloudflare data transfer.
+
+If your deployment environment can reach MySQL during builds, an explicit
+one-step deployment command is `npm run db:migrate && npm run build`.
+Otherwise run migration from a database-accessible terminal before deployment.
+The default build stays database-independent. Run `npm run test:migrations`
+to verify the runner with mocked database access.
 
 Greetings, reports, template visibility, analytics events, and JPEG photos are
 stored in MySQL. Photos use a MEDIUMBLOB column, retaining the existing upload
