@@ -10,7 +10,7 @@ Use Hostinger's **Node.js Web App** with these build settings:
 - Root directory: the directory containing this package.json
 - Entry file: leave empty for Hostinger's Next.js deployment
 
-The default `npm run build` runs the Hostinger Next.js build. The alternative
+The default `npm run build` runs MySQL migrations before the Hostinger Next.js build. The alternative
 `npm run build:hostinger` does the same thing. For Vinext/Sites, explicitly run
 `npm run build:sites`; its `dist` output is not for Hostinger's Next.js deployment.
 
@@ -37,19 +37,19 @@ has been recorded; add future migrations as new entries in the migration runner.
 An existing table is not altered or checked for schema compatibility by the
 initial migration. This is table creation, not a Cloudflare data transfer.
 
-If your deployment environment can reach MySQL during builds, an explicit
-one-step deployment command is `npm run db:migrate && npm run build`.
-Otherwise run migration from a database-accessible terminal before deployment.
-The default build stays database-independent. Run `npm run test:migrations`
-to verify the runner with mocked database access.
+The deployment build command `npm run build` now runs migrations automatically
+and stops if migration fails. The build environment needs MySQL credentials and
+network access to the database. For compilation without a database connection,
+use `npm run build:app`; this intentionally skips migrations. Run
+`npm run test:migrations` to verify the runner with mocked database access.
 
 Greetings, reports, template visibility, analytics events, and JPEG photos are
 stored in MySQL. Photos use a MEDIUMBLOB column, retaining the existing upload
 size limit. No database credentials are bundled into browser code.
 
 This creates a fresh database. Existing Cloudflare D1/R2 data is not migrated.
-The build does not need a database connection, but API requests need configured
-credentials and the imported schema. Do not commit real credentials.
+Both the deployment build and API requests need configured database credentials.
+Do not commit real credentials.
 
 ## Local production check
 
