@@ -1,4 +1,6 @@
 export const collections:Record<string,{category:string;message:string;suggestions?:string[];date?:string}>={
+  business:{category:'Visiting cards',message:'Create a visiting card with your business name, logo, contact details, and a short description of your services.'},
+  invitations:{category:'Invitations',message:'Invite people to a wedding, birthday, housewarming, baby shower, grand opening, or dinner. Add your date, time, venue, and RSVP details.'},
   faith:{category:'Faith & blessings',message:'Share a thoughtful greeting for Sikh, Hindu, Muslim, Christian, Buddhist, and Jain occasions. Choose a tradition, then add your own words and a personal photo.',suggestions:['May your home be filled with peace and your days with kindness.','Sending warm wishes to you and your family on this special occasion.','May faith, gratitude, and compassion bring light to your day.']},
   birthday:{category:'Birthday',message:'Celebrate what makes them special. Mention a favourite memory, a quality you admire, or something you hope the next year brings them.'},
   anniversary:{category:'Anniversary',message:'Celebrate the life they’re building together. A shared memory or a wish for the years ahead makes an anniversary greeting feel personal.'},

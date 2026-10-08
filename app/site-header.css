@@ -1,0 +1,20 @@
+.site-header{position:sticky;top:0;z-index:30;background:#fffaf8;border-bottom:1px solid #eadfe0;box-shadow:0 3px 14px #40202a06}
+.site-header-main,.site-header-bottom{max-width:1320px;margin:auto;padding:0 28px;display:flex;align-items:center;gap:24px;justify-content:space-between}
+.site-header-main{min-height:78px}
+.site-header .brand{font-family:inherit;font-size:30px;letter-spacing:-1px;line-height:1;font-weight:750}
+.site-header .brand-mark{font-size:36px;color:#d82f50;margin-right:7px}
+.header-purpose{font-size:13px;color:#73626a;flex:1}
+.site-header-actions{display:flex;align-items:center;gap:10px}
+.site-header button{display:inline-flex;align-items:center;justify-content:center;gap:7px;min-height:44px;border-radius:9px;padding:0 12px;font:inherit;font-size:13px;font-weight:600}
+.header-search,.header-drafts{background:white;border:1px solid #eadfe0;color:#40333a}
+.site-header .header-create{background:#d82f50;color:white;border:1px solid #d82f50}
+.header-count{min-width:20px;padding:2px 5px;border-radius:20px;background:#fce6eb;color:#a21f3a;font-size:11px}
+.site-header-bottom{border-top:1px solid #efe7e7;min-height:46px;gap:12px}
+.site-header-bottom nav{display:flex;gap:24px;overflow-x:auto;white-space:nowrap;min-width:0;scrollbar-width:thin}
+.site-header-bottom nav a{font-size:13px;font-weight:600;display:flex;align-items:center;min-height:46px;border-bottom:2px solid transparent;color:#66535b}
+.site-header-bottom nav a[aria-current]{color:#b52342;border-color:#d82f50}
+.site-header-bottom nav a:hover{color:#b52342}
+.site-header .header-install{flex-shrink:0;background:transparent;color:#6a555e;font-size:12px;padding:0 4px}
+#templates{scroll-margin-top:140px}
+@media(max-width:900px){.header-purpose{display:none}.site-header-main,.site-header-bottom{padding-inline:18px}.site-header-bottom nav{gap:20px}}
+@media(max-width:540px){.site-header-main{min-height:70px;gap:10px;padding-inline:12px}.site-header .brand{font-size:25px}.site-header .brand-mark{font-size:28px}.site-header-actions{gap:5px}.site-header button{padding-inline:9px}.site-header .header-create span{display:none}.site-header .header-create{min-width:42px}.site-header .header-create::after{content:'Create';font-size:12px}.site-header .header-search{display:none}.header-drafts span{font-size:12px}.site-header-bottom{padding-inline:12px}.site-header .header-install{font-size:0;width:30px}.site-header .header-install svg{width:18px;height:18px}.site-header-bottom nav{gap:18px}.site-header .brand-parent{font-size:9px}}

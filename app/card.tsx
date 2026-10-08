@@ -15,5 +15,5 @@ export default function Card({template,greeting,paused=false}:{template:Template
     void draw(buffer,template,greeting||defaultGreeting(template)).then(()=>{if(cancelled)return;canvas.width=buffer.width;canvas.height=buffer.height;ready=true;sync()}).catch(()=>{});
     return()=>{cancelled=true;cancelAnimationFrame(frame);observer.disconnect();reduced.removeEventListener('change',sync);document.removeEventListener('visibilitychange',sync)};
   },[template,greeting,paused]);
-  return <canvas ref={ref} className="greeting-canvas" width={1080} height={greeting?.layout==='vertical'?1440:1080} aria-label={`${template.motion?'Animated ':''}${template.faith||template.festival||template.category}: ${(greeting?.heading??template.heading).replaceAll('\n',' ')}`} role="img"/>;
+  return <canvas ref={ref} className="greeting-canvas" width={1080} height={template.kind==='business'?648:(greeting||defaultGreeting(template)).layout==='vertical'?1440:1080} aria-label={`${template.motion?'Animated ':''}${template.faith||template.festival||template.category}: ${(greeting?.heading??template.heading).replaceAll('\n',' ')}`} role="img"/>;
 }

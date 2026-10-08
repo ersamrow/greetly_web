@@ -21,3 +21,7 @@ button:focus-visible,a:focus-visible,.search:focus-within,.editor-controls input
 .search:focus-within{border-color:#d82f50}
 .count{background:#fce8ed;color:#a71e3a}
 @media(max-width:480px){.header{gap:8px}.header .brand-lockup .brand{font-size:26px}.brand-parent{font-size:10px}.header nav{gap:8px}.header nav button{font-size:12px}}
+
+.business-card .card-wrap{display:flex;align-items:center;background:#f6f6f4}.business-card .card-wrap canvas{flex:0 0 100%}.editor-controls label[hidden]{display:none}
+
+.profile-tools{display:grid;gap:10px;padding:12px;border:1px solid #e5e7eb;border-radius:8px;background:#fffaf8}.profile-tools strong{font-size:14px}.profile-actions{display:flex;gap:8px;flex-wrap:wrap}.profile-actions button{font-size:12px;min-height:40px;padding:8px 10px}.profile-tools select{padding:10px;background:white;border:1px solid #e5e7eb;border-radius:6px;font:inherit}.draft-name-field{display:flex!important;flex-direction:row!important;align-items:center;font-size:12px!important;margin-bottom:8px}.draft-name-field input{min-height:32px!important;padding:5px 8px!important;font-size:13px!important;flex:1;min-width:0}
