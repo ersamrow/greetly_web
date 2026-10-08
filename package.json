@@ -6,6 +6,8 @@
     "node": ">=22.13.0"
   },
   "scripts": {
+    "previews": "node scripts/generate-previews.mjs",
+    "test:seo": "node scripts/test-seo.mjs",
     "install:ci": "node scripts/install-ci.mjs",
     "dev": "node scripts/run-framework.mjs dev",
     "build": "npm run db:migrate && npm run build:app",

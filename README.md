@@ -4,6 +4,26 @@ Deploying Greetly on Hostinger? Follow [HOSTINGER.md](./HOSTINGER.md) for the
 Next.js build command and MySQL setup. `npm run build` now targets Hostinger;
 use `npm run build:sites` for the Sites build described below.
 
+## Card pages and preview assets
+
+Every template has a stable `/card/<template-id>` page, included in the sitemap.
+The homepage shows a curated selection; collection pages link to every card.
+Thumbnails are committed WebP files at 320 and 640 pixels, and social previews
+are 1200 × 630 JPEGs rendered from the same canvas code as the editor.
+
+After changing template names, artwork, or rendering, run `npm run previews`
+before building and commit the resulting `public/previews` files. This uses
+local headless Chrome (set `CHROME_PATH` if Chrome is installed elsewhere).
+Production builds do not require Chrome. Run `npm run test:seo` to check
+catalog coverage, unique names, metadata and preview availability. With the
+built app running, run `node scripts/smoke-seo.mjs`; `TEST_BASE_URL` defaults
+to `http://127.0.0.1:3000`.
+
+Admin data and mutations require the server's `ADMIN_TOKEN`. The public admin
+page is only the key-entry screen; no admin data is embedded in its HTML.
+Missing or incorrect keys are rejected by the API. Configure this secret on
+the deployment host; never expose it through a `NEXT_PUBLIC_` variable.
+
 A clean full-stack starter running on [vinext](https://github.com/cloudflare/vinext), with optional Cloudflare D1 and Drizzle support.
 
 ## Prerequisites

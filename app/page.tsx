@@ -7,11 +7,11 @@ export default function Home(){
   const base=getSiteUrl();
   const data={
     '@context':'https://schema.org',
-    '@type':'WebSite',
+    '@graph': [{'@type':'Organization',name:'Greetly',url:base?.href,logo:new URL('/icon-512.png',base).href},{'@type':'WebSite',
     name:'Greetly',
     description:homeDescription,
     inLanguage:'en',
-    ...(base?{url:base.href}:{}),
+    ...(base?{url:base.href}:{}),}],
   };
   return <><script type="application/ld+json" dangerouslySetInnerHTML={{__html:serializeJsonLd(data)}}/><Studio/></>;
 }

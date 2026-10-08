@@ -18,19 +18,22 @@ export function getSiteUrl(): URL | undefined {
   return url;
 }
 
-export function pageMetadata(title: string, description: string, path: string): Metadata {
+export function pageMetadata(title: string, description: string, path: string, previewId = 'g1'): Metadata {
   const base = getSiteUrl();
   const url = base ? new URL(path, base).href : undefined;
+  const images = [{url: new URL(`/previews/${previewId}-social.jpg`, base).href, width:1200, height:630, alt:title}];
   return {
     title,
     description,
     ...(url ? { alternates: { canonical: url } } : {}),
-    openGraph: { type: 'website', siteName: 'Greetly', title, description, ...(url ? { url } : {}) },
-    twitter: { card: 'summary', title, description },
+    openGraph: { type: 'website', siteName: 'Greetly', title, description, images, ...(url ? { url } : {}) },
+    twitter: { card: 'summary_large_image', title, description, images },
   };
 }
 
 export const collectionDescriptions: Record<string, string> = {
+  business: 'Design a free visiting card with your business name, logo, contact details and services.',
+  invitations: 'Create a personal invitation for weddings, birthdays, housewarmings and gatherings, with event and RSVP details.',
   birthday: 'Make a free personalised birthday card with your own wishes, name and photo. Explore birthday message ideas, then download or share your greeting.',
   anniversary: 'Celebrate a special couple with a free personalised anniversary card. Find thoughtful wishes, add a photo and share a greeting made just for them.',
   'thank-you': 'Say thank you with a free personalised greeting card. Find thoughtful messages, add your own words and download or share your appreciation.',
