@@ -1,6 +1,6 @@
 import type {Greeting,Template} from './templates';
 
-export function hasEditorOptions(g:Greeting){return ['heading','headingColor','textColor','headingSize','messageSize','textAlign','photoPlacement','photoSize','photoShape','photoZoom','photoX','photoY'].some(key=>g[key as keyof Greeting]!==undefined)}
+export function hasEditorOptions(g:Greeting){return ['positions','heading','headingColor','textColor','headingSize','messageSize','textAlign','photoPlacement','photoSize','photoShape','photoZoom','photoX','photoY'].some(key=>g[key as keyof Greeting]!==undefined)}
 
 export function textLines(c:CanvasRenderingContext2D,text:string,width:number){
   const lines:string[]=[];
@@ -11,7 +11,7 @@ export function textLines(c:CanvasRenderingContext2D,text:string,width:number){
       if(c.measureText(line?line+' '+word:word).width<=width){line=line?line+' '+word:word;continue}
       if(line){lines.push(line);line=''}
       // Split long unbroken names and words instead of clipping them.
-      for(const char of word){if(line&&c.measureText(line+char).width>width){lines.push(line);line=''}line+=char}
+      for(const char of Array.from(new Intl.Segmenter(undefined,{granularity:'grapheme'}).segment(word),part=>part.segment)){if(line&&c.measureText(line+char).width>width){lines.push(line);line=''}line+=char}
     }
     if(line)lines.push(line);
   }
@@ -25,6 +25,7 @@ export async function drawEditable(c:CanvasRenderingContext2D,t:Template,g:Greet
   const inline=!!g.photo&&['middle','in-message','after-message'].includes(placement);
   const paintPhoto=async(px:number,py:number)=>{
     const image=await new Promise<HTMLImageElement>((resolve,reject)=>{const im=new Image();im.onload=()=>resolve(im);im.onerror=()=>reject(Error('Could not load your photo'));im.src=g.photo!});
+    px+=g.positions?.photo?.x||0;py+=g.positions?.photo?.y||0;
     c.save();c.beginPath();
     const shape=g.photoShape??'circle';
     if(shape==='circle')c.arc(px+size/2,py+size/2,size/2,0,Math.PI*2);

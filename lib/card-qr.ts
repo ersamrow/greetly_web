@@ -12,6 +12,7 @@ export function qrPayload(g:Greeting):string|undefined{
 }
 export function drawQR(c:CanvasRenderingContext2D,g:Greeting,x:number,y:number,size=220){
   const payload=qrPayload(g);if(!payload)return;
+  x+=g.positions?.qr?.x||0;y+=g.positions?.qr?.y||0;
   const qr=QRCode.create(payload,{errorCorrectionLevel:'M'}),n=qr.modules.size,cell=Math.floor(size/(n+8)),width=cell*(n+8);
   c.save();c.fillStyle='#ffffff';c.fillRect(x,y,width,width);c.fillStyle='#000000';
   for(let row=0;row<n;row++)for(let col=0;col<n;col++)if(qr.modules.get(row,col))c.fillRect(x+(col+4)*cell,y+(row+4)*cell,cell,cell);

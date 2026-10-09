@@ -51,7 +51,7 @@ export async function drawBrandBusiness(c:CanvasRenderingContext2D,t:Template,g:
   if(g.photo){
     const image=await new Promise<HTMLImageElement>((resolve,reject)=>{const im=new Image();im.onload=()=>resolve(im);im.onerror=()=>reject(Error('Could not load logo'));im.src=g.photo!});
     const size=logo.size*(g.logoScale??100)/100,ratio=Math.min(size/image.width,size/image.height);
-    c.drawImage(image,logo.x+(logo.size-image.width*ratio)/2,logo.y+(logo.size-image.height*ratio)/2,image.width*ratio,image.height*ratio);
+    c.drawImage(image,logo.x+(logo.size-image.width*ratio)/2+(g.positions?.photo?.x||0),logo.y+(logo.size-image.height*ratio)/2+(g.positions?.photo?.y||0),image.width*ratio,image.height*ratio);
   }else{
     c.fillStyle=accent;c.font=`bold ${logo.size*.5}px ${g.font}`;c.textAlign='center';c.textBaseline='middle';
     c.fillText((g.heading||t.heading).trim().charAt(0).toUpperCase(),logo.x+logo.size/2,logo.y+logo.size/2);

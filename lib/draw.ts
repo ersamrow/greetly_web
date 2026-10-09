@@ -1,13 +1,17 @@
+import {positionedText} from './element-positions';
 import {drawQR,qrPayload} from './card-qr';
 import {drawBusiness} from './draw-business';
 import {Greeting,Template} from './templates';
-import {drawEditable,hasEditorOptions} from './editor-layout';
+import {drawEditable,hasEditorOptions,textLines} from './editor-layout';
 const artworkCache=new Map<string,Promise<HTMLImageElement>>();
 function loadArtwork(path:string){let pending=artworkCache.get(path);if(!pending){pending=new Promise<HTMLImageElement>((resolve,reject)=>{const image=new Image();image.onload=()=>resolve(image);image.onerror=()=>{artworkCache.delete(path);reject(new Error('Could not load card artwork'))};image.src=path});artworkCache.set(path,pending)}return pending}
 export async function draw(canvas:HTMLCanvasElement,t:Template,g:Greeting){
-if(t.kind==='business'){canvas.width=1080;canvas.height=648;await drawBusiness(canvas.getContext('2d')!,t,g);return}
+if(g.font.startsWith('Noto Sans')&&typeof document!=='undefined')await document.fonts.load(`32px "${g.font}"`);
+if(g.socialSize&&g.socialSize!=='original'){const source=document.createElement('canvas');await draw(source,t,{...g,socialSize:'original'});canvas.width=1080;canvas.height=g.socialSize==='story'?1920:g.socialSize==='portrait'?1350:1080;const ctx=canvas.getContext('2d')!;ctx.fillStyle=g.bg;ctx.fillRect(0,0,canvas.width,canvas.height);const ratio=Math.min(canvas.width/source.width,canvas.height/source.height);ctx.drawImage(source,(canvas.width-source.width*ratio)/2,(canvas.height-source.height*ratio)/2,source.width*ratio,source.height*ratio);return}
+if(t.kind==='business'&&g.side==='back'&&g.back){canvas.width=1080;canvas.height=648;const c=canvas.getContext('2d')!;c.fillStyle=g.bg;c.fillRect(0,0,1080,648);c.fillStyle=g.headingColor||t.ink;c.fillRect(60,50,960,4);c.textAlign='center';c.textBaseline='top';const sections:[[string,number],[string,number],[string,number]]=[[g.back.heading,48],[g.back.message,28],[g.back.website,24]];const measure=(scale:number)=>sections.map(([text,size])=>{c.font=`${size*scale}px "${g.font}"`;return {size:size*scale,lines:textLines(c,text,900)}});let scale=1,blocks=measure(scale);while(blocks.reduce((n,b)=>n+b.lines.length*b.size*1.3+28,0)>490&&scale>.1){scale*=.9;blocks=measure(scale)}let y=95;for(const block of blocks){c.font=`${block.size}px "${g.font}"`;for(const line of block.lines){c.fillText(line,540,y);y+=block.size*1.3}y+=28;}return}
+if(t.kind==='business'){canvas.width=1080;canvas.height=648;await drawBusiness(positionedText(canvas.getContext('2d')!,g,t.photoCredit),t,g);return}
 if(t.kind==='invitation'){const d=g.details||{};g={...g,heading:g.heading??t.heading,message:[g.message,[d.date,d.time].filter(Boolean).join(' · '),d.venue,d.rsvp?'RSVP: '+d.rsvp:'',g.sender?'Hosted by '+g.sender:''].filter(Boolean).join('\n\n'),sender:''}}
-const w=1080,h=g.layout==='vertical'?1440:1080;canvas.width=w;canvas.height=h;const c=canvas.getContext('2d')!;c.fillStyle=g.bg;c.fillRect(0,0,w,h);c.fillStyle=t.ink;c.strokeStyle=t.ink;
+const w=1080,h=g.layout==='vertical'?1440:1080;canvas.width=w;canvas.height=h;const c=positionedText(canvas.getContext('2d')!,g,t.photoCredit);c.fillStyle=g.bg;c.fillRect(0,0,w,h);c.fillStyle=t.ink;c.strokeStyle=t.ink;
 if(t.artwork){const art=await loadArtwork(t.artwork);c.drawImage(art,0,0,art.width,art.height/2,0,0,w,540);if(h>1080)c.drawImage(art,0,art.height/3,art.width,art.height/3,0,540,w,h-1080);c.drawImage(art,0,art.height/2,art.width,art.height/2,0,h-540,w,540);if(g.bg!==t.bg){c.save();c.globalAlpha=.22;c.fillStyle=g.bg;c.fillRect(0,0,w,h);c.restore()}}
 if(t.pattern===0){for(let i=0;i<34;i++){let x=(i*197+45)%w,y=(i*313+35)%h;if(x>130&&x<950&&y>170&&y<h-150)continue;c.save();c.translate(x,y);c.rotate(i);c.globalAlpha=.55;c.fillRect(-7,-17,14,34);c.restore();}}
 if(t.pattern===1){c.lineWidth=3;for(let i=0;i<3;i++)c.strokeRect(35+i*15,35+i*15,w-70-i*30,h-70-i*30);}

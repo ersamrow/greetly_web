@@ -17,6 +17,18 @@ for(const id of ['business-rose','invite-wedding']){
 }
 const {drawEditable}=await import(asModule(fs.readFileSync('lib/editor-layout.ts','utf8')));
 const base=defaultGreeting(templates[0]);
+const extended={...base,socialSize:'story',language:'pa',font:'Noto Sans Gurmukhi',side:'back',back:{heading:'Brand',message:'Services',website:'example.com'},rsvpEmail:'host@example.com'};
+assert.deepEqual(greetingSchema.parse(extended),extended,'All new creation settings survive sharing');
+assert(!greetingSchema.safeParse({...base,rsvpEmail:'not-an-email'}).success);
+const positions={text:{x:20,y:-30},photo:{x:-40,y:50},qr:{x:10,y:20}};
+assert.deepEqual(greetingSchema.parse({...base,positions}).positions,positions,'Element positions survive saving');
+assert(!greetingSchema.safeParse({...base,positions:{text:{x:Infinity,y:0}}}).success);
+const {positionedText}=await import(asModule(fs.readFileSync('lib/element-positions.ts','utf8')));
+const textCalls=[],context={fillStyle:'red',fillText(...args){textCalls.push(args)}};
+const positioned=positionedText(context,{...base,positions},'Photo credit');
+positioned.fillText('Hello',100,200);positioned.fillText('made with greetly',100,200);positioned.fillText('Photo credit',100,200);positioned.fillStyle='blue';
+assert.deepEqual(textCalls,[['Hello',120,170],['made with greetly',100,200],['Photo credit',100,200]]);
+assert.equal(context.fillStyle,'blue','Canvas properties remain writable');
 for(const logoScale of [50,100,120])assert.equal(greetingSchema.parse({...base,logoScale}).logoScale,logoScale,'Logo size survives saving');
 for(const logoScale of [0,121])assert(!greetingSchema.safeParse({...base,logoScale}).success,'Reject out-of-range logo sizes');
 const {photoContentType,encodePhoto}=await import(asModule(fs.readFileSync('lib/photo-format.ts','utf8')));

@@ -44,7 +44,7 @@ export async function drawBusiness(c:CanvasRenderingContext2D,t:Template,g:Greet
   while(blocks.reduce((sum,b)=>sum+b.lines.length*b.size*1.3+b.gap,0)>480&&scale>.1){scale*=.9;blocks=measure(scale)}
   c.textAlign=align;c.textBaseline='top';let y=68;
   for(const block of blocks){c.fillStyle=block.color;c.font=`${block.size}px ${g.font}`;for(const line of block.lines){c.fillText(line,x,y);y+=block.size*1.3}y+=block.gap}
-  if(g.photo){const im=await new Promise<HTMLImageElement>((resolve,reject)=>{const image=new Image();image.onload=()=>resolve(image);image.onerror=()=>reject(Error('Could not load logo'));image.src=g.photo!});const size=160*(g.logoScale??100)/100,ratio=Math.min(size/im.width,size/im.height);c.drawImage(im,920-im.width*ratio/2,148-im.height*ratio/2,im.width*ratio,im.height*ratio)}
+  if(g.photo){const im=await new Promise<HTMLImageElement>((resolve,reject)=>{const image=new Image();image.onload=()=>resolve(image);image.onerror=()=>reject(Error('Could not load logo'));image.src=g.photo!});const size=160*(g.logoScale??100)/100,ratio=Math.min(size/im.width,size/im.height);c.drawImage(im,920-im.width*ratio/2+(g.positions?.photo?.x||0),148-im.height*ratio/2+(g.positions?.photo?.y||0),im.width*ratio,im.height*ratio)}
   if(g.branding){c.fillStyle=ink;c.font='16px Arial';c.textAlign='right';c.fillText('made with greetly',1000,605)}
   drawQR(c,g,790,340,210);
   c.textBaseline='alphabetic';
