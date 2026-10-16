@@ -1,4 +1,6 @@
 export const collections:Record<string,{category:string;message:string;suggestions?:string[];date?:string}>={
+  love:{category:'Love',message:'Send a complete love note for your partner, a long-distance hello or a little everyday affection. Messages are ready to share; names and photos are optional.'},
+  friendship:{category:'Friendship',message:'Celebrate your friends with ready-written thank-you notes, encouragement, check-ins and messages across the miles. Choose a design and share it as it is.'},
   business:{category:'Visiting cards',message:'Create a visiting card with your business name, logo, contact details, and a short description of your services.'},
   invitations:{category:'Invitations',message:'Invite people to a wedding, birthday, housewarming, baby shower, grand opening, or dinner. Add your date, time, venue, and RSVP details.'},
   faith:{category:'Faith & blessings',message:'Share a thoughtful greeting for Sikh, Hindu, Muslim, Christian, Buddhist, and Jain occasions. Choose a tradition, then add your own words and a personal photo.',suggestions:['May your home be filled with peace and your days with kindness.','Sending warm wishes to you and your family on this special occasion.','May faith, gratitude, and compassion bring light to your day.']},

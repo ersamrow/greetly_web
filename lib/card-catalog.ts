@@ -10,5 +10,5 @@ export function collectionFor(template: Template) {
 export function collectionPreview(slug: string) {
   return templates.find(template => matchesOccasion(template, collections[slug].category))!;
 }
-export const featuredIds = ['g1','g15','g28','g40','dussehra-marigold','diwali-diyas','sikh-gurpurab','invite-wedding','business-rose','ai-diwali-dream','motion-birthday-confetti','invite-housewarming'];
+export const featuredIds = ['love-my-person','friendship-always','diwali-family-ready','g1','g15','g28','g40','dussehra-marigold','diwali-diyas','sikh-gurpurab','invite-wedding','business-rose','ai-diwali-dream','motion-birthday-confetti','invite-housewarming'];
 export const collectionLabel = (slug: string, category: string) => ({festivals:'Festival wishes',daily:'Daily greetings',faith:'Faith & blessings',business:'Visiting cards',invitations:'Invitations'}[slug] || `${category} wishes`);

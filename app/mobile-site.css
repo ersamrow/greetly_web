@@ -1,0 +1,54 @@
+/* Shared mobile defaults also cover standalone card, privacy and recipient routes. */
+@media(max-width:760px){
+ [data-slot=dialog-content]>[data-slot=dialog-close]{width:44px;height:44px;display:grid;place-items:center;top:2px;right:2px}
+ .compact-editor.editor-modal>h2{padding-right:40px}
+ .profile-tools>summary{cursor:pointer;font-weight:600;min-height:44px;display:flex;align-items:center}
+ .content-page,.recipient{width:100%;min-width:0;overflow-wrap:anywhere}
+ .content-page{margin:24px auto;padding:0 18px 28px;line-height:1.65}
+ .content-page h1{font-size:clamp(26px,7vw,36px);line-height:1.2;margin-bottom:16px}
+ .content-page h2{font-size:21px;line-height:1.35}
+ .content-page button,.content-page .primary,.recipient button,.recipient .primary{min-height:44px;padding:10px 14px;white-space:normal}
+ .content-page .primary,.recipient .primary{display:inline-flex;align-items:center;justify-content:center;max-width:100%;text-align:center}
+ .content-page input,.recipient input,.recipient select,.recipient textarea{font-size:16px;max-width:100%;min-width:0}
+ .content-page .text-input{display:block;width:100%;margin-block:8px}
+ .draft-row,.admin-row{gap:12px;flex-wrap:wrap;min-width:0}
+ .draft-row>a,.admin-row>span{flex:1 1 160px;min-width:0;overflow-wrap:anywhere}
+ .draft-row button,.admin-row button{flex-shrink:0}
+ .recipient{margin:20px auto;padding:0 16px 30px}
+ .recipient canvas{display:block;width:100%;height:auto;max-width:100%}
+ .recipient .rsvp-form{margin:20px auto;padding:16px;min-width:0}
+ .rsvp-form input,.rsvp-form select{width:100%;min-height:44px}
+ .rsvp-form a{overflow-wrap:anywhere}
+ .card-detail nav{font-size:13px;line-height:1.7;overflow-wrap:anywhere}
+ .card-detail img{max-width:100%}
+ .consent{max-height:45dvh;overflow:auto;bottom:max(12px,env(safe-area-inset-bottom));gap:10px}
+ .consent button{min-height:44px;padding:8px 14px}
+ .site-header .header-install{min-width:44px}
+ .drafts-modal .draft-filter{flex-shrink:0}
+ .drafts-modal .draft-search{font-size:16px;min-height:44px}
+ .drafts-modal .draft-actions{flex-wrap:wrap;gap:5px}
+ .drafts-modal .draft-actions>button{min-height:44px;min-width:44px}
+ .drafts-modal .draft-actions .draft-resume{flex:1 1 110px}
+ .drafts-modal .drafts-heading,.drafts-modal .drafts-summary,.drafts-modal .drafts-footer{flex-shrink:0}
+ .drafts-modal .drafts-list{flex:1;min-height:0}
+ footer{gap:12px;padding-inline:18px;padding-bottom:max(24px,env(safe-area-inset-bottom))}
+ footer p{flex-basis:100%}
+ footer>a{display:inline-flex;align-items:center;min-height:44px}
+}
+@media(max-width:360px){
+ .site-header .brand{font-size:22px}
+ .site-header .brand-mark{font-size:25px;margin-right:4px}
+ .site-header-main{gap:6px;padding-inline:10px}
+ .site-header-actions{gap:4px}
+ .site-header .header-drafts{gap:4px;padding-inline:6px}
+ .site-header .header-create{padding-inline:7px}
+ .site-header .header-create svg{display:none}
+ .main .template-grid{gap:12px 8px}
+ .compact-editor .two-controls{grid-template-columns:minmax(0,1fr)}
+}
+@media(max-height:500px) and (min-width:651px){
+ .compact-editor.editor-modal{height:96dvh;max-height:96dvh;padding:12px!important}
+ .compact-editor.editor-modal>p{display:none}
+ .compact-editor .preview-panel canvas{max-height:55dvh}
+ .compact-editor .editor-fields{min-height:50px}
+}

@@ -32,6 +32,8 @@ export function pageMetadata(title: string, description: string, path: string, p
 }
 
 export const collectionDescriptions: Record<string, string> = {
+  love: 'Share a ready-written love card for your partner, a morning hello or a long-distance hug. Choose a design, optionally add names or a photo, and send.',
+  friendship: 'Send thoughtful friendship cards with complete messages of thanks, encouragement and care. Personalise with names or share your favourite design as it is.',
   business: 'Design a free visiting card with your business name, logo, contact details and services.',
   invitations: 'Create a personal invitation for weddings, birthdays, housewarmings and gatherings, with event and RSVP details.',
   birthday: 'Make a free personalised birthday card with your own wishes, name and photo. Explore birthday message ideas, then download or share your greeting.',

@@ -37,3 +37,19 @@
  .compact-editor:not(.large-preview):not(.is-preview) .preview-panel canvas{max-height:9dvh}
  .compact-editor:not(.large-preview):not(.is-preview) .preview-panel>span{display:none}
 }
+@media(max-height:500px) and (min-width:651px){
+ .compact-editor.editor-modal{height:100dvh;max-height:100dvh;padding:10px!important;gap:4px}
+ .compact-editor.editor-modal>h2{font-size:17px;line-height:1.2}
+ .compact-editor.editor-modal>p{display:none}
+ .compact-editor .editor-grid{margin-top:0;gap:12px}
+ .compact-editor .editor-controls{gap:4px}
+ .compact-editor .editor-tabs button{min-height:34px}
+ .compact-editor .editor-history{padding:0;gap:6px}
+ .compact-editor .editor-history button{min-height:30px;padding:4px 8px}
+ .compact-editor .editor-history small{font-size:10px}
+ .compact-editor .editor-fields{min-height:0;padding-block:0}
+ .compact-editor .editor-bottom{padding-top:2px}
+ .compact-editor .editor-actions{margin-top:2px}
+ .compact-editor .preview-panel{padding:8px}
+ .compact-editor .preview-panel canvas{max-height:47dvh}
+}

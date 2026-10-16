@@ -19,6 +19,17 @@ if(t.pattern===2){c.globalAlpha=.12;for(let i=0;i<9;i++){c.beginPath();c.arc(i%2
 if(t.pattern===3){for(let i=0;i<70;i++){c.globalAlpha=.17;c.beginPath();c.arc((i*173)%w,(i*271)%h,4+(i%4)*2,0,Math.PI*2);c.fill();}c.globalAlpha=1;}
 if(t.pattern===4){c.lineWidth=2;c.globalAlpha=.4;for(let i=0;i<7;i++){c.beginPath();c.arc(w/2,h/2,460+i*15,0,Math.PI*2);c.stroke();}c.globalAlpha=1;}
 if(t.pattern===5){try{const im=await new Promise<HTMLImageElement>((res,rej)=>{const i=new Image();i.onload=()=>res(i);i.onerror=rej;i.src='/floral.png'});c.drawImage(im,0,0,w,h)}catch{}}
+if(t.pattern===6){
+  for(const [x,y,size,angle] of [[90,120,38,-.2],[970,180,48,.2],[80,h-200,26,-.3],[980,h-110,38,.15],[180,h-70,17,0]]){
+    c.save();c.translate(x,y);c.rotate(angle);c.globalAlpha=.22;c.beginPath();c.moveTo(0,size*.45);c.bezierCurveTo(-size*1.5,-size*.45,-size*.6,-size*1.4,0,-size*.55);c.bezierCurveTo(size*.6,-size*1.4,size*1.5,-size*.45,0,size*.45);c.fill();c.restore();
+  }
+  c.save();c.globalAlpha=.25;c.lineWidth=2;c.strokeRect(28,28,w-56,h-56);c.restore();
+}
+if(t.pattern===7){
+  c.save();c.globalAlpha=.2;c.lineWidth=10;
+  for(const [x,y] of [[60,150],[970,h-140]]){c.beginPath();c.arc(x,y,64,0,Math.PI*2);c.stroke();c.beginPath();c.arc(x+48,y+35,64,0,Math.PI*2);c.stroke()}
+  c.lineWidth=3;c.beginPath();c.moveTo(200,h-85);c.quadraticCurveTo(540,h-145,880,h-85);c.stroke();c.restore();
+}
 c.textAlign='center';const rgb=(t.artwork?t.bg:g.bg).slice(1).match(/../g)!.map(v=>parseInt(v,16));const dark=rgb[0]*.299+rgb[1]*.587+rgb[2]*.114<130;c.fillStyle=dark?'#fff6df':t.ink==='#f8de9a'?'#322a54':t.ink;
 const wrap=(text:string,y:number,size:number,max=790)=>{c.font=`${size}px ${g.font}`;const words=text.split(/\s+/);let line='',lines:string[]=[];for(const word of words){let next=line?line+' '+word:word;if(c.measureText(next).width>max&&line){lines.push(line);line=word;}else line=next;}if(line)lines.push(line);for(const [i,l] of lines.entries())c.fillText(l,w/2,y+i*size*1.38);return y+lines.length*size*1.38;};
 if(t.photoArtwork){const photo=await loadArtwork(t.photoArtwork);const sh=photo.width*420/960,sy=(photo.height-sh)*(t.photoArtwork.includes('night')?.25:.55);c.drawImage(photo,0,sy,photo.width,sh,60,h-480,960,420);}
