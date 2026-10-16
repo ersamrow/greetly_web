@@ -1,4 +1,4 @@
-# Greetly
+# Greetlo
 
 React/Vinext greeting maker with 72 template variants, seven occasion collections, PNG canvas exports, native sharing with fallbacks, device-local drafts, Cloudflare D1 saved greetings and analytics, R2 photos, and an installable PWA.
 

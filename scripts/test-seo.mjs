@@ -16,7 +16,7 @@ const seoSource = read('lib/seo.ts').replace("import { env } from '@/lib/runtime
 const seoUrl = moduleUrl(seoSource);
 const seo = await import(seoUrl);
 const { collections } = await import(collectionsUrl);
-const origin = 'https://greetly.myledgerpro.in';
+const origin = 'https://greetlo.in';
 assert.equal(seo.getSiteUrl().origin, origin);
 const loadRoute = path => import(moduleUrl(read(path)
   .replaceAll("'@/lib/templates'", JSON.stringify(templatesUrl))

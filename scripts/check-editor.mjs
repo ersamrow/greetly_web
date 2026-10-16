@@ -26,8 +26,8 @@ assert(!greetingSchema.safeParse({...base,positions:{text:{x:Infinity,y:0}}}).su
 const {positionedText}=await import(asModule(fs.readFileSync('lib/element-positions.ts','utf8')));
 const textCalls=[],context={fillStyle:'red',fillText(...args){textCalls.push(args)}};
 const positioned=positionedText(context,{...base,positions},'Photo credit');
-positioned.fillText('Hello',100,200);positioned.fillText('made with greetly',100,200);positioned.fillText('Photo credit',100,200);positioned.fillStyle='blue';
-assert.deepEqual(textCalls,[['Hello',120,170],['made with greetly',100,200],['Photo credit',100,200]]);
+positioned.fillText('Hello',100,200);positioned.fillText('made with greetlo',100,200);positioned.fillText('Photo credit',100,200);positioned.fillStyle='blue';
+assert.deepEqual(textCalls,[['Hello',120,170],['made with greetlo',100,200],['Photo credit',100,200]]);
 assert.equal(context.fillStyle,'blue','Canvas properties remain writable');
 for(const logoScale of [50,100,120])assert.equal(greetingSchema.parse({...base,logoScale}).logoScale,logoScale,'Logo size survives saving');
 for(const logoScale of [0,121])assert(!greetingSchema.safeParse({...base,logoScale}).success,'Reject out-of-range logo sizes');

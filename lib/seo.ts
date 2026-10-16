@@ -1,9 +1,9 @@
 import type { Metadata } from 'next';
 import { env } from '@/lib/runtime-env';
 
-export const homeTitle = 'Free Online Greeting Cards & Personalised Wishes | Greetly';
+export const homeTitle = 'Free Online Greeting Cards & Personalised Wishes | Greetlo';
 export const homeDescription = 'Create free personalised greeting cards for birthdays, anniversaries, Diwali and more. Add your message and photo, then download or share. No sign-up needed.';
-export const publicSiteOrigin = 'https://greetly.myledgerpro.in';
+export const publicSiteOrigin = 'https://greetlo.in';
 
 // Never invent a domain or publish localhost as a canonical URL.
 export function getSiteUrl(): URL | undefined {
@@ -26,7 +26,7 @@ export function pageMetadata(title: string, description: string, path: string, p
     title,
     description,
     ...(url ? { alternates: { canonical: url } } : {}),
-    openGraph: { type: 'website', siteName: 'Greetly', title, description, images, ...(url ? { url } : {}) },
+    openGraph: { type: 'website', siteName: 'Greetlo', title, description, images, ...(url ? { url } : {}) },
     twitter: { card: 'summary_large_image', title, description, images },
   };
 }

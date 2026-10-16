@@ -1,5 +1,5 @@
 export function greetingShareText(url:string){
-  return `A little greeting for you 💌\nView your greeting: ${url}\n\nCreate your own with Greetly by My Ledger Pro: ${new URL('/',url).href}`;
+  return `A little greeting for you 💌\nView your greeting: ${url}\n\nCreate your own with Greetlo: https://greetlo.in/`;
 }
 
 type ShareTarget={share?:(data:ShareData)=>Promise<void>;canShare?:(data:ShareData)=>boolean;clipboard?:{writeText:(text:string)=>Promise<void>}};
@@ -13,7 +13,7 @@ export async function shareGreeting(target:ShareTarget,url:string,file?:File){
       try{await target.share(imageData);return 'shared' as const}
       catch(error){if(!(error instanceof Error)||!['NotSupportedError','TypeError'].includes(error.name))throw error}
     }
-    await target.share({title,text:`Create your own with Greetly by My Ledger Pro: ${new URL('/',url).href}`,url});
+    await target.share({title,text:`Create your own with Greetlo: https://greetlo.in/`,url});
     return 'shared' as const;
   }
   if(!target.clipboard)throw Error('Copy the share message shown below to send your greeting.');

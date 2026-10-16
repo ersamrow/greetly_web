@@ -31,5 +31,5 @@ export async function downloadPrintPDF(t:Template,g:Greeting){
     c.drawImage(canvas,0,0,1,canvas.height,0,b,b,canvas.height);c.drawImage(canvas,canvas.width-1,0,1,canvas.height,b+canvas.width,b,b,canvas.height);c.drawImage(canvas,b,b);
     const jpeg=Uint8Array.from(atob(full.toDataURL('image/jpeg',.98).split(',')[1]),c=>c.charCodeAt(0));pages.push({jpeg,width:full.width,height:full.height,mmWidth,mmHeight});
   }
-  const output=printDocument(pages),url=URL.createObjectURL(new Blob([output as BlobPart],{type:'application/pdf'})),a=document.createElement('a');a.href=url;a.download='greetly-print.pdf';a.click();setTimeout(()=>URL.revokeObjectURL(url),10000);
+  const output=printDocument(pages),url=URL.createObjectURL(new Blob([output as BlobPart],{type:'application/pdf'})),a=document.createElement('a');a.href=url;a.download='greetlo-print.pdf';a.click();setTimeout(()=>URL.revokeObjectURL(url),10000);
 }

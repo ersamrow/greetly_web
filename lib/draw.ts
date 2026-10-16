@@ -30,6 +30,6 @@ if(g.name){y=wrap(g.name,y+12,44,800)+12;}else y+=30;
 y=wrap(g.message,y,27,730);if(g.sender)wrap('With love, '+g.sender,Math.min(y+40,h-110),27);
 }
 if(t.kind==='invitation')drawQR(c,g,430,h-290,220);
-if(g.branding){c.font='20px Arial';c.globalAlpha=.65;c.fillText('made with greetly',540,h-42);c.globalAlpha=1;}
+if(g.branding){c.font='20px Arial';c.globalAlpha=.65;c.fillText('made with greetlo',540,h-42);c.globalAlpha=1;}
 if(t.photoCredit){c.save();c.textAlign='center';c.font='15px Arial';c.fillStyle=t.ink;c.fillText(t.photoCredit,540,h-16,1000);c.restore();}
 }

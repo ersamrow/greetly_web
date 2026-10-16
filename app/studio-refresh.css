@@ -1,4 +1,4 @@
-/* Greetly's browsing surface: crisp paper, forest ink, generous controls. */
+/* Greetlo's browsing surface: crisp paper, forest ink, generous controls. */
 .skip-link{position:fixed;top:12px;left:16px;z-index:100;background:#020817;color:white;padding:12px 20px;border-radius:8px;transform:translateY(-160%)}
 .skip-link:focus{transform:translateY(0)}
 .header{height:80px;padding-inline:max(5%,calc((100vw - 1280px)/2));border-color:#f6f6f4}

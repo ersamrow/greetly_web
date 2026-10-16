@@ -7,7 +7,7 @@ const dataUrl = source => 'data:text/javascript;base64,' + Buffer.from(source).t
 const environment = dataUrl(`
   export const writes = [];
   export const env = {
-    SITE_URL: 'https://greetly.myledgerpro.in',
+    SITE_URL: 'https://greetlo.in',
     DB: { prepare(sql) { return { bind(...values) { return { async run() { writes.push({sql,values}); } }; } }; } },
     BUCKET: { async put() {}, async delete() {} }
   };
@@ -33,7 +33,7 @@ function loadUrl(file) {
 }
 
 const { sameOrigin } = await import(loadUrl('lib/server.ts'));
-const publicOrigin = 'https://greetly.myledgerpro.in';
+const publicOrigin = 'https://greetlo.in';
 const request = (origin, url = 'http://127.0.0.1:3000/api/greetings', extra = {}) => new Request(url, {
   method: 'POST', headers: { ...(origin === undefined ? {} : { Origin: origin }), ...extra }, body: '{}',
 });
@@ -41,7 +41,7 @@ assert(sameOrigin(request(publicOrigin)), 'Public HTTPS origin must work behind 
 assert(sameOrigin(request(publicOrigin, publicOrigin + '/api/greetings')));
 assert(sameOrigin(request('http://localhost:3000', 'http://localhost:3000/api/greetings')));
 assert(sameOrigin(request(undefined)), 'Non-browser clients remain supported');
-for (const origin of ['https://evil.example', publicOrigin + '.evil.example', 'http://greetly.myledgerpro.in', publicOrigin + ':444', 'null', 'malformed', publicOrigin + '/path']) {
+for (const origin of ['https://evil.example', publicOrigin + '.evil.example', 'http://greetlo.in', publicOrigin + ':444', 'null', 'malformed', publicOrigin + '/path']) {
   assert.equal(sameOrigin(request(origin)), false, `Reject ${origin}`);
 }
 assert.equal(sameOrigin(request('https://evil.example', undefined, {

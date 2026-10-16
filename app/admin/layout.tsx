@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Template Administration | Greetly',
+  title: 'Template Administration | Greetlo',
   robots: { index: false, follow: false },
 };
 

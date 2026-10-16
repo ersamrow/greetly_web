@@ -67,7 +67,7 @@ share link, then delete it to verify database access and the imported schema.
 
 ## Search engine configuration
 
-The default public origin is `https://greetly.myledgerpro.in`. Set `SITE_URL`
+The default public origin is `https://greetlo.in`. Set `SITE_URL`
 before building only if this changes. Use an HTTP(S) origin without a path,
 query string, or credentials. Rebuild and redeploy after changing the domain;
 the homepage, robots file, and sitemap are generated during the build.
@@ -80,7 +80,7 @@ These rules do not provide access control.
 
 Run `node scripts/test-seo.mjs` for metadata and sitemap checks. After deploying,
 verify the domain in Google Search Console and submit
-`https://greetly.myledgerpro.in/sitemap.xml`. Inspect the homepage and an occasion
+`https://greetlo.in/sitemap.xml`. Inspect the homepage and an occasion
 URL to confirm that Google sees the intended canonical and indexability.
 Search Console verification and submission require the site's owner account.
 
@@ -88,7 +88,7 @@ Search Console verification and submission require the site's owner account.
 
 The API accepts the configured `SITE_URL` origin as well as the request URL's
 own origin. This allows public HTTPS requests when the hosting proxy passes an
-internal HTTP URL to Next.js. The default is `https://greetly.myledgerpro.in`;
+internal HTTP URL to Next.js. The default is `https://greetlo.in`;
 if overriding `SITE_URL`, use that exact public origin, without a trailing path.
 Unrelated origins and caller-supplied forwarding headers do not grant access.
 

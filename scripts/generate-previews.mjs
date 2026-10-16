@@ -43,7 +43,7 @@ try{
       for(const width of [320,640]){const c=document.createElement('canvas');c.width=width;c.height=Math.round(width*img.height/img.width);c.getContext('2d').drawImage(img,0,0,c.width,c.height);output[`${id}-${width}.webp`]=c.toDataURL('image/webp',.86);}
       const c=document.createElement('canvas');c.width=1200;c.height=630;const ctx=c.getContext('2d'),t=window.catalog.find(t=>t.id===id);
       ctx.fillStyle='#fffaf3';ctx.fillRect(0,0,1200,630);const scale=Math.min(530/img.width,550/img.height),h=img.height*scale,w=img.width*scale;ctx.drawImage(img,36+(530-w)/2,(630-h)/2,w,h);
-      const x=620;ctx.fillStyle='#a63848';ctx.font='bold 38px Georgia';ctx.fillText('greetly.',x,135);ctx.fillStyle='#292424';ctx.font='bold 30px Georgia';
+      const x=620;ctx.fillStyle='#a63848';ctx.font='bold 38px Georgia';ctx.fillText('greetlo.',x,135);ctx.fillStyle='#292424';ctx.font='bold 30px Georgia';
       let line='',y=225;for(const word of t.name.split(' ')){const next=line?line+' '+word:word;if(ctx.measureText(next).width>1160-x&&line){ctx.fillText(line,x,y);y+=40;line=word}else line=next}ctx.fillText(line,x,y);
       ctx.font='22px Arial';ctx.fillText(t.festival||t.category,x,y+65);ctx.fillText('Free to personalise and share',x,510);
       output[`${id}-social.jpg`]=c.toDataURL('image/jpeg',.9);return output;

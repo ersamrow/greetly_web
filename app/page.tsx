@@ -7,8 +7,8 @@ export default function Home(){
   const base=getSiteUrl();
   const data={
     '@context':'https://schema.org',
-    '@graph': [{'@type':'Organization',name:'Greetly',url:base?.href,logo:new URL('/icon-512.png',base).href},{'@type':'WebSite',
-    name:'Greetly',
+    '@graph': [{'@type':'Organization',name:'Greetlo',url:base?.href,logo:new URL('/icon-512.png',base).href},{'@type':'WebSite',
+    name:'Greetlo',
     description:homeDescription,
     inLanguage:'en',
     ...(base?{url:base.href}:{}),}],

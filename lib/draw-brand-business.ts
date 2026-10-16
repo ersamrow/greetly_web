@@ -57,6 +57,6 @@ export async function drawBrandBusiness(c:CanvasRenderingContext2D,t:Template,g:
     c.fillText((g.heading||t.heading).trim().charAt(0).toUpperCase(),logo.x+logo.size/2,logo.y+logo.size/2);
   }
   if(hasQR)drawQR(c,g,qr.x,qr.y,190);
-  if(g.branding){c.fillStyle=t.pattern===8?ink:t.pattern===9||t.pattern===10?onAccent:g.textColor||onAccent;c.font='14px Arial';c.textAlign='right';c.textBaseline='top';c.fillText('made with greetly',1020,625)}
+  if(g.branding){c.fillStyle=t.pattern===8?ink:t.pattern===9||t.pattern===10?onAccent:g.textColor||onAccent;c.font='14px Arial';c.textAlign='right';c.textBaseline='top';c.fillText('made with greetlo',1020,625)}
   c.restore();
 }
