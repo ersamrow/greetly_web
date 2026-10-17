@@ -36,6 +36,32 @@ export const aiTemplates:Template[] = [
   {...festivalTemplates[7],id:'ai-diwali-glow',name:'An enchanted Diwali',aiArt:true,artwork:'/posts/diwali-dream.webp',bg:'#171938',ink:'#ffe6a7',pattern:-1,motion:'sparkle'},
 ];
 
+// New compositions reuse the reviewed AI artwork library; no external API calls.
+export const expandedAiTemplates:Template[]=[
+ {...aiTemplates[0],id:'ai-dussehra-family',name:'Marigolds for the family',heading:'Goodness begins\nat home.',message:'Wishing your family a Dussehra full of courage, kindness and happy moments together.',font:'Georgia'},
+ {...aiTemplates[0],id:'ai-dussehra-gratitude',name:'A golden thank you',heading:'Grateful for\nyour goodness.',message:'This Dussehra, thank you for the kindness you bring into my life. May hope and happiness always find you.',font:'Arial',motion:'glow'},
+ {...aiTemplates[0],id:'ai-dussehra-fresh-start',name:'A marigold morning',heading:'New hope.\nNew beginnings.',message:'May this Vijayadashami open the door to brighter days, brave choices and beautiful new beginnings.',font:'Verdana'},
+ {...aiTemplates[0],id:'ai-dussehra-together',name:'Celebrate goodness together',heading:'A little courage.\nA lot of joy.',message:'Here is to choosing kindness, celebrating goodness and sharing the joy of Dussehra with those we love.',font:'Georgia',motion:'confetti'},
+ {...aiTemplates[2],id:'ai-diwali-reunion',name:'Diyas for a homecoming',heading:'Home is brighter\nwith you.',message:'May the glow of Diwali bring us closer, fill our home with laughter and make new memories to treasure.',font:'Georgia'},
+ {...aiTemplates[2],id:'ai-diwali-thanks',name:'A luminous thank you',heading:'You make our\nworld brighter.',message:'With gratitude for your warmth and support, wishing you a Diwali filled with peace, happiness and sweet moments.',font:'Arial',motion:'sparkle'},
+ {...aiTemplates[2],id:'ai-diwali-distance',name:'Light across the miles',heading:'Far apart.\nClose at heart.',message:'Sending the warmth of a thousand diyas across the miles. Missing you and wishing you a beautiful Diwali.',font:'Verdana'},
+ {...aiTemplates[2],id:'ai-diwali-quiet',name:'A quiet Diwali glow',heading:'Peace at home.\nLight within.',message:'May the soft glow of this Diwali bring restful moments, a grateful heart and hope for the days ahead.',font:'Georgia',motion:'glow'},
+ ...faithTemplates.filter(t=>t.aiArt).map((t,i)=>({...t,id:`${t.id}-warm-wishes`,name:`${t.name} · Warm wishes`,font:i%2?'Verdana':'Arial',motion:t.motion?undefined:'glow',kicker:'WITH WARMTH AND GOOD WISHES',message:[
+  'Wishing you and your loved ones a peaceful Gurpurab, with time for reflection, gratitude and service to others.',
+  'May small acts of seva bring joy to your day and comfort to those around you. Sending warm wishes for peace and kindness.',
+  'May wisdom guide your choices, love fill your home and each new day bring another reason to be grateful.',
+  'Wishing your family a joyful Deepavali, with the warmth of togetherness and the gentle light of hope.',
+  'Eid Mubarak to you and your loved ones. May this celebration bring gratitude, generosity and cherished time together.',
+  'May this Ramadan bring meaningful reflection, strength in faith and kindness shared with family and neighbours.',
+  'Wishing you a Christmas filled with the peace of Christ, the warmth of family and the joy of giving.',
+  'May the hope of Easter brighten your heart and bring peace and renewed joy to your family.',
+  'On Vesak, may compassion guide your actions and quiet reflection bring peace to your day.',
+  'May you meet this day with a gentle heart, a peaceful mind and loving-kindness for yourself and others.',
+  'May the teachings of Mahavir inspire compassion, thoughtful choices and peace in every part of your life.',
+  'Wishing you a meaningful Paryushan, with time for reflection, forgiveness and renewed kindness.'
+ ][i]||t.message})) as Template[],
+];
+
 export const businessTemplates:Template[]=[
   {id:'business-rose',name:'Rose signature',bg:'#fffaf8',ink:'#b52342',pattern:0},
   {id:'business-midnight',name:'Midnight professional',bg:'#142c3b',ink:'#ffe6a7',pattern:1},
@@ -83,7 +109,7 @@ export const readyTemplates:Template[]=[
   {id:'diwali-peace-ready',name:'Diwali · Peace, light and kindness',category:'Festivals',festival:'Diwali',heading:'A peaceful,\njoyful Diwali.',message:'May this festival bring light to your home and gentleness to your days. Wishing you meaningful time with loved ones, kindness shared freely and simple moments that leave your heart feeling full.',bg:'#fff2d5',ink:'#75512a',pattern:4,kicker:'LIGHT • LOVE • TOGETHERNESS'},
 ];
 
-export const templates:Template[] = [...readyTemplates,...businessTemplates,...invitationTemplates,...faithTemplates,...motionTemplates,...aiTemplates,...festivalTemplates,...originalTemplates];
+export const templates:Template[] = [...readyTemplates,...businessTemplates,...invitationTemplates,...faithTemplates,...motionTemplates,...expandedAiTemplates,...aiTemplates,...festivalTemplates,...originalTemplates];
 export function isTemplateId(id:unknown):id is string{return typeof id==='string'&&templates.some(t=>t.id===id)}
 export function matchesOccasion(t:Template,occasion:string){return occasion==='All occasions'||t.category===occasion||t.festival===occasion}
 export type Greeting = {socialSize?:'original'|'square'|'portrait'|'story';language?:'en'|'hi'|'pa';side?:'front'|'back';back?:{heading:string;message:string;website:string};rsvpEmail?:string;positions?:Partial<Record<'text'|'photo'|'qr',{x:number;y:number}>>;logoScale?:number;qr?:{mode:'url'|'whatsapp'|'map'|'contact';value:string};details?:{role?:string;phone?:string;email?:string;website?:string;address?:string;date?:string;time?:string;venue?:string;rsvp?:string};templateId:string;name:string;message:string;sender:string;bg:string;font:string;layout:string;branding:boolean;photo?:string;heading?:string;headingColor?:string;textColor?:string;headingSize?:number;messageSize?:number;textAlign?:'left'|'center'|'right';photoPlacement?:'top'|'bottom'|'left'|'right'|'middle'|'in-message'|'after-message';photoSize?:number;photoShape?:'circle'|'rounded'|'square';photoZoom?:number;photoX?:number;photoY?:number};
