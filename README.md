@@ -6,7 +6,7 @@ use `npm run build:sites` for the Sites build described below.
 
 ## Card pages and preview assets
 
-Every template has a stable `/card/<template-id>` page, included in the sitemap.
+Every template has a `/card/<descriptive-slug>` page. Stable IDs still identify saved drafts and preview assets; `lib/legacy-cards.json` maps the 60 original IDs to public slugs, with 301 redirects configured in Next.js. Only canonical editions are included in the sitemap.
 The homepage shows a curated selection; collection pages link to every card.
 Thumbnails are committed WebP files at 320 and 640 pixels, and social previews
 are 1200 × 630 JPEGs rendered from the same canvas code as the editor.
@@ -148,3 +148,27 @@ The portable build runs Vinext directly without a host `timeout` command. The ma
 
 - [vinext Documentation](https://github.com/cloudflare/vinext)
 - [Drizzle D1 Guide](https://orm.drizzle.team/docs/get-started/d1-new)
+
+
+## Card discovery and search metadata
+
+Card tiles link to their detail pages; the Personalise button opens the editor as
+an action. Card pages contain contextual copy, three example messages and related
+cards. `lib/card-editorial.ts` owns that copy. Alternate faith “Warm wishes”
+editions canonicalise to the original; general Diwali and Hindu Deepavali cards
+retain distinct URLs because they serve different messages and audiences.
+
+`lib/content-dates.ts` records meaningful content revision dates. Update the
+relevant date when content changes; never replace it with the build/request date.
+
+If verification is not already handled through DNS, set
+`GOOGLE_SITE_VERIFICATION` and/or `BING_SITE_VERIFICATION` to the public token
+from the service, then rebuild. Empty values emit no verification tag. Setting a
+tag does not itself verify ownership or submit the sitemap: complete verification
+and submit `https://greetlo.in/sitemap.xml` in the appropriate account after
+publishing. Request indexing for `/occasions/diwali`, `/card/diwali-diyas`, and the
+other intended canonical pages only after the deployed pages are available.
+
+Run `npm run test:seo`, then `node scripts/smoke-seo.mjs` against the built server
+(`TEST_BASE_URL` overrides its default). The smoke check verifies real 301s,
+server-rendered metadata, structured data, related content and social images.

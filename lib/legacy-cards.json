@@ -1,0 +1,242 @@
+{
+  "g1": {
+    "slug": "birthday-peach-confetti",
+    "name": "Birthday · Peach confetti"
+  },
+  "g2": {
+    "slug": "birthday-rose-frame",
+    "name": "Birthday · Rose frame"
+  },
+  "g3": {
+    "slug": "birthday-blue-circles",
+    "name": "Birthday · Blue circles"
+  },
+  "g4": {
+    "slug": "birthday-sage-starlight",
+    "name": "Birthday · Sage starlight"
+  },
+  "g5": {
+    "slug": "birthday-plum-rings",
+    "name": "Birthday · Plum rings"
+  },
+  "g6": {
+    "slug": "birthday-gold-floral",
+    "name": "Birthday · Gold floral"
+  },
+  "g7": {
+    "slug": "birthday-blue-confetti",
+    "name": "Birthday · Blue confetti"
+  },
+  "g8": {
+    "slug": "birthday-sage-frame",
+    "name": "Birthday · Sage frame"
+  },
+  "g9": {
+    "slug": "birthday-plum-circles",
+    "name": "Birthday · Plum circles"
+  },
+  "g10": {
+    "slug": "birthday-gold-starlight",
+    "name": "Birthday · Gold starlight"
+  },
+  "g11": {
+    "slug": "birthday-peach-rings",
+    "name": "Birthday · Peach rings"
+  },
+  "g12": {
+    "slug": "birthday-rose-floral",
+    "name": "Birthday · Rose floral"
+  },
+  "g13": {
+    "slug": "anniversary-rose-confetti",
+    "name": "Anniversary · Rose confetti"
+  },
+  "g14": {
+    "slug": "anniversary-blue-frame",
+    "name": "Anniversary · Blue frame"
+  },
+  "g15": {
+    "slug": "anniversary-sage-circles",
+    "name": "Anniversary · Sage circles"
+  },
+  "g16": {
+    "slug": "anniversary-plum-starlight",
+    "name": "Anniversary · Plum starlight"
+  },
+  "g17": {
+    "slug": "anniversary-gold-rings",
+    "name": "Anniversary · Gold rings"
+  },
+  "g18": {
+    "slug": "anniversary-peach-floral",
+    "name": "Anniversary · Peach floral"
+  },
+  "g19": {
+    "slug": "anniversary-sage-confetti",
+    "name": "Anniversary · Sage confetti"
+  },
+  "g20": {
+    "slug": "anniversary-plum-frame",
+    "name": "Anniversary · Plum frame"
+  },
+  "g21": {
+    "slug": "anniversary-gold-circles",
+    "name": "Anniversary · Gold circles"
+  },
+  "g22": {
+    "slug": "anniversary-peach-starlight",
+    "name": "Anniversary · Peach starlight"
+  },
+  "g23": {
+    "slug": "anniversary-rose-rings",
+    "name": "Anniversary · Rose rings"
+  },
+  "g24": {
+    "slug": "anniversary-blue-floral",
+    "name": "Anniversary · Blue floral"
+  },
+  "g25": {
+    "slug": "thank-you-blue-confetti",
+    "name": "Thank you · Blue confetti"
+  },
+  "g26": {
+    "slug": "thank-you-sage-frame",
+    "name": "Thank you · Sage frame"
+  },
+  "g27": {
+    "slug": "thank-you-plum-circles",
+    "name": "Thank you · Plum circles"
+  },
+  "g28": {
+    "slug": "thank-you-gold-starlight",
+    "name": "Thank you · Gold starlight"
+  },
+  "g29": {
+    "slug": "thank-you-peach-rings",
+    "name": "Thank you · Peach rings"
+  },
+  "g30": {
+    "slug": "thank-you-rose-floral",
+    "name": "Thank you · Rose floral"
+  },
+  "g31": {
+    "slug": "thank-you-plum-confetti",
+    "name": "Thank you · Plum confetti"
+  },
+  "g32": {
+    "slug": "thank-you-gold-frame",
+    "name": "Thank you · Gold frame"
+  },
+  "g33": {
+    "slug": "thank-you-peach-circles",
+    "name": "Thank you · Peach circles"
+  },
+  "g34": {
+    "slug": "thank-you-rose-starlight",
+    "name": "Thank you · Rose starlight"
+  },
+  "g35": {
+    "slug": "thank-you-blue-rings",
+    "name": "Thank you · Blue rings"
+  },
+  "g36": {
+    "slug": "thank-you-sage-floral",
+    "name": "Thank you · Sage floral"
+  },
+  "g37": {
+    "slug": "daily-greeting-sage-confetti",
+    "name": "Daily greeting · Sage confetti"
+  },
+  "g38": {
+    "slug": "daily-greeting-plum-frame",
+    "name": "Daily greeting · Plum frame"
+  },
+  "g39": {
+    "slug": "daily-greeting-gold-circles",
+    "name": "Daily greeting · Gold circles"
+  },
+  "g40": {
+    "slug": "daily-greeting-peach-starlight",
+    "name": "Daily greeting · Peach starlight"
+  },
+  "g41": {
+    "slug": "daily-greeting-rose-rings",
+    "name": "Daily greeting · Rose rings"
+  },
+  "g42": {
+    "slug": "daily-greeting-blue-floral",
+    "name": "Daily greeting · Blue floral"
+  },
+  "g43": {
+    "slug": "daily-greeting-gold-confetti",
+    "name": "Daily greeting · Gold confetti"
+  },
+  "g44": {
+    "slug": "daily-greeting-peach-frame",
+    "name": "Daily greeting · Peach frame"
+  },
+  "g45": {
+    "slug": "daily-greeting-rose-circles",
+    "name": "Daily greeting · Rose circles"
+  },
+  "g46": {
+    "slug": "daily-greeting-blue-starlight",
+    "name": "Daily greeting · Blue starlight"
+  },
+  "g47": {
+    "slug": "daily-greeting-sage-rings",
+    "name": "Daily greeting · Sage rings"
+  },
+  "g48": {
+    "slug": "daily-greeting-plum-floral",
+    "name": "Daily greeting · Plum floral"
+  },
+  "g49": {
+    "slug": "festival-plum-confetti",
+    "name": "Festival · Plum confetti"
+  },
+  "g50": {
+    "slug": "festival-gold-frame",
+    "name": "Festival · Gold frame"
+  },
+  "g51": {
+    "slug": "festival-peach-circles",
+    "name": "Festival · Peach circles"
+  },
+  "g52": {
+    "slug": "festival-rose-starlight",
+    "name": "Festival · Rose starlight"
+  },
+  "g53": {
+    "slug": "festival-blue-rings",
+    "name": "Festival · Blue rings"
+  },
+  "g54": {
+    "slug": "festival-sage-floral",
+    "name": "Festival · Sage floral"
+  },
+  "g55": {
+    "slug": "festival-peach-confetti",
+    "name": "Festival · Peach confetti"
+  },
+  "g56": {
+    "slug": "festival-rose-frame",
+    "name": "Festival · Rose frame"
+  },
+  "g57": {
+    "slug": "festival-blue-circles",
+    "name": "Festival · Blue circles"
+  },
+  "g58": {
+    "slug": "festival-sage-starlight",
+    "name": "Festival · Sage starlight"
+  },
+  "g59": {
+    "slug": "festival-plum-rings",
+    "name": "Festival · Plum rings"
+  },
+  "g60": {
+    "slug": "festival-gold-floral",
+    "name": "Festival · Gold floral"
+  }
+}

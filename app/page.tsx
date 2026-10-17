@@ -7,7 +7,7 @@ export default function Home(){
   const base=getSiteUrl();
   const data={
     '@context':'https://schema.org',
-    '@graph': [{'@type':'Organization',name:'Greetlo',url:base?.href,logo:new URL('/icon-512.png',base).href},{'@type':'WebSite',
+    '@graph': [{'@type':'Organization','@id':new URL('/#organization',base).href,name:'Greetlo',url:base?.href,logo:new URL('/icon-512.png',base).href},{'@type':'WebSite','@id':new URL('/#website',base).href,publisher:{'@id':new URL('/#organization',base).href},
     name:'Greetlo',
     description:homeDescription,
     inLanguage:'en',

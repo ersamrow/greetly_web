@@ -49,3 +49,9 @@ export const collectionDescriptions: Record<string, string> = {
 export function serializeJsonLd(value: unknown) {
   return JSON.stringify(value).replace(/</g, '\\u003c');
 }
+
+export function siteVerification():Metadata['verification']{
+ const values=env as unknown as {GOOGLE_SITE_VERIFICATION?:string;BING_SITE_VERIFICATION?:string};
+ const google=values.GOOGLE_SITE_VERIFICATION?.trim(),bing=values.BING_SITE_VERIFICATION?.trim();
+ return {...(google?{google}:{}),...(bing?{other:{'msvalidate.01':bing}}:{})};
+}

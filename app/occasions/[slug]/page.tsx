@@ -1,4 +1,5 @@
-import {collectionPreview} from '@/lib/card-catalog';
+import {templates,matchesOccasion} from '@/lib/templates';
+import {collectionPreview,cardPath} from '@/lib/card-catalog';
 import Studio from '../../studio';
 import {notFound} from 'next/navigation';
 import {collections} from '@/lib/collections';
@@ -20,7 +21,8 @@ export default async function Page({params}:{params:Promise<{slug:string}>}){
   const data={
     '@context':'https://schema.org',
     '@graph':[
-      {'@type':'CollectionPage',name:`${c.category} greeting cards and wishes`,description:collectionDescriptions[slug]||c.message,inLanguage:'en',...(url?{url}:{})},
+      {'@type':'ItemList','@id':url+'#cards',name:`${c.category} card designs`,numberOfItems:templates.filter(t=>matchesOccasion(t,c.category)).length,itemListElement:templates.filter(t=>matchesOccasion(t,c.category)).map((t,i)=>({'@type':'ListItem',position:i+1,name:t.name,url:new URL(cardPath(t),base).href}))},
+      {'@type':'CollectionPage',name:`${c.category} greeting cards and wishes`,description:collectionDescriptions[slug]||c.message,mainEntity:{'@id':url+'#cards'},inLanguage:'en',...(url?{url}:{})},
       ...(base?[{'@type':'BreadcrumbList',itemListElement:[
         {'@type':'ListItem',position:1,name:'All collections',item:base.href},
         {'@type':'ListItem',position:2,name:`${c.category} greetings`,item:url},

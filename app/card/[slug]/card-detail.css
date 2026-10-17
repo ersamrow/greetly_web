@@ -1,0 +1,13 @@
+.card-detail{max-width:850px;margin:0 auto;padding:28px 24px 60px}
+.card-detail nav{font-size:13px;line-height:1.6;color:#735b66}
+.card-detail h1{font-size:clamp(28px,5vw,44px);letter-spacing:-1px;line-height:1.15}
+.card-detail p,.card-message-ideas{font-size:16px;line-height:1.75;max-width:72ch}
+.card-detail .card-detail-preview{display:block;max-width:min(100%,540px);height:auto;margin:24px auto;border-radius:12px}
+.card-detail-action{display:flex;justify-content:center;margin:20px 0 36px}
+.card-detail section{margin:28px 0}.card-detail h2{font-size:22px;margin-bottom:12px}
+.card-detail section p+p{margin-top:12px}.card-message-ideas{padding-left:24px}.card-message-ideas li{margin:12px 0}
+.card-detail section a,.card-detail>p a{text-decoration:underline;text-underline-offset:3px}
+.related-card-links{display:grid;grid-template-columns:1fr 1fr;list-style:none;padding:0;gap:12px}
+.related-card-links li{border:1px solid #eadfe0;border-radius:10px;padding:14px;display:flex;flex-direction:column;gap:6px}
+.related-card-links span{font-size:12px;color:#73626a}
+@media(max-width:540px){.card-detail{padding:20px 16px 40px}.related-card-links{grid-template-columns:1fr}}

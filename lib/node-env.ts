@@ -67,6 +67,8 @@ const photos = {
 };
 
 export const env = {
+  get GOOGLE_SITE_VERIFICATION() { return process.env.GOOGLE_SITE_VERIFICATION; },
+  get BING_SITE_VERIFICATION() { return process.env.BING_SITE_VERIFICATION; },
   get SITE_URL() { return process.env.SITE_URL; },
   DB: { prepare },
   BUCKET: photos,
