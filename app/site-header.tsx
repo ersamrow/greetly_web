@@ -6,7 +6,7 @@ export default function SiteHeader({collectionSlug,draftCount,onDrafts,onInstall
   const links=[['All designs','/#templates',undefined],['Visiting cards','/occasions/business','business'],['Invitations','/occasions/invitations','invitations'],['Festivals','/occasions/festivals','festivals'],['Faith & blessings','/occasions/faith','faith']];
   return <header className="site-header">
     <div className="site-header-main">
-      <div className="brand-lockup"><a href="/" className="brand" aria-label="Greetlo home"><span className="brand-mark" aria-hidden="true">✳</span>greetlo<span className="brand-dot">.</span></a><a className="brand-parent" href="https://greetlo.in/" target="_blank" rel="noopener noreferrer">greetlo.in</a></div>
+      <div className="brand-lockup"><a href="/" className="brand" aria-label="Greetlo home"><img className="greetlo-logo" src="/brand/greetlo-logo.webp" width="640" height="234" alt="Greetlo — Make someone’s day."/></a></div>
       <span className="header-purpose">Your moments. Your brand. Your cards.</span>
       <div className="site-header-actions">
         <button type="button" className="header-search" aria-label="Search designs" title="Search designs" onClick={onSearch}><Search size={19}/></button>
