@@ -1,0 +1,9 @@
+.about-section{display:grid;grid-template-columns:minmax(0,1fr) minmax(260px,360px);align-items:center;gap:48px;padding:48px 0;margin-top:32px;border-top:1px solid #eaded8;scroll-margin-top:110px}
+.about-copy h2{font-size:clamp(26px,3vw,36px);line-height:1.2;letter-spacing:-.8px;margin:12px 0 16px;color:#381538}
+.about-copy p{max-width:580px;font-size:16px;line-height:1.8;color:#60636b;margin:0}
+.founder-card{padding:28px 20px;text-align:center;border:1px solid #f0e3cd;border-radius:20px;background:#fffbea;box-shadow:0 6px 20px #38153806}
+.founder-card img{display:block;width:144px;height:144px;margin:0 auto 20px;border:4px solid #ffc7ab;border-radius:50%;object-fit:cover;object-position:center 30%}
+.founder-card h3{font-size:20px;line-height:1.4;color:#381538;margin:0 0 5px;font-weight:650}
+.founder-card p{font-size:15px;line-height:1.5;color:#a44625;margin:0}
+.footer-links{display:flex;flex-wrap:wrap;gap:12px 24px}
+@media(max-width:640px){.about-section{grid-template-columns:1fr;gap:24px;padding:32px 0}.founder-card{width:100%;max-width:400px;justify-self:center}.footer-links{justify-content:center}}
