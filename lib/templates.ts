@@ -5,7 +5,7 @@ export const palettes = [['#ffeedb','#a6422b'],['#ecb6cd','#76243d'],['#cfddf2',
 const titles = ['A little celebration','Made of sunshine','With all my heart','The good things','A beautiful chapter','A wish for you','Simply wonderful','Love, always','Golden moments','Just because','A brighter day','Something special'];
 const headings = ['Happy\nbirthday!','Here’s to\nyou two.','You make\na difference.','Hello,\nsunshine.','Light up\nthe moment.'];
 export const messages = ['Another year of you making the world a little brighter. Have the happiest birthday!','To all the memories you’ve made, and all the beautiful ones still to come. Happy anniversary!','A little note for a big thank you. Your kindness means more than you know.','Here’s to a fresh start, little joys, and a day that feels like you.','May this season bring light to your home, warmth to your heart, and joy to everyone you love.'];
-export type Template = {kind?:'business'|'invitation';id:string;name:string;category:string;heading:string;message:string;bg:string;ink:string;pattern:number;festival?:'Dussehra'|'Diwali';artwork?:string;photoArtwork?:string;photoCredit?:string;font?:string;motion?:'sparkle'|'confetti'|'glow';aiArt?:boolean;faith?:Faith;occasion?:string;kicker?:string};
+export type Template = {kind?:'business'|'invitation';id:string;name:string;category:string;heading:string;message:string;bg:string;ink:string;pattern:number;festival?:'Dussehra'|'Diwali';artwork?:string;artworkTextTop?:boolean;photoArtwork?:string;photoCredit?:string;font?:string;motion?:'sparkle'|'confetti'|'glow';aiArt?:boolean;faith?:Faith;occasion?:string;kicker?:string};
 const originalTemplates:Template[] = Array.from({length:60},(_,i)=>{const c=Math.floor(i/12),p=palettes[(i+c+Math.floor((i%12)/6)*2)%6];return {id:`g${i+1}`,name:`${['Birthday','Anniversary','Thank you','Daily greeting','Festival'][c]} · ${['Peach','Rose','Blue','Sage','Plum','Gold'][(i+c+Math.floor((i%12)/6)*2)%6]} ${['confetti','frame','circles','starlight','rings','floral'][i%6]}`,category:occasions[c+1],heading:c===4?['Happy\nDiwali!','Colours\nof joy.','A bright\nnew year.'][i%3]:headings[c],message:messages[c],bg:p[0],ink:p[1],pattern:i%6};});
 export const festivalTemplates:Template[] = [
   {id:'dussehra-marigold',name:'Marigold wishes',festival:'Dussehra',category:'Festivals',heading:'Happy\nDussehra!',message:'May goodness guide your way and courage fill your heart. Wishing you and your family a joyful Dussehra.',bg:'#fff0d9',ink:'#813a21',pattern:-1,artwork:'/festivals/dussehra.webp'},
@@ -109,7 +109,73 @@ export const readyTemplates:Template[]=[
   {id:'diwali-peace-ready',name:'Diwali · Peace, light and kindness',category:'Festivals',festival:'Diwali',heading:'A peaceful,\njoyful Diwali.',message:'May this festival bring light to your home and gentleness to your days. Wishing you meaningful time with loved ones, kindness shared freely and simple moments that leave your heart feeling full.',bg:'#fff2d5',ink:'#75512a',pattern:4,kicker:'LIGHT • LOVE • TOGETHERNESS'},
 ];
 
-export const templates:Template[] = [...readyTemplates,...businessTemplates,...invitationTemplates,...faithTemplates,...motionTemplates,...expandedAiTemplates,...aiTemplates,...festivalTemplates,...originalTemplates];
+export const ramSitaTemplates:Template[] = [
+  {
+    "id": "diwali-ram-sita-ayodhya",
+    "name": "Ram & Sita · Ayodhya lights",
+    "heading": "Happy Diwali!",
+    "message": "May the light of Ram and Sita’s homecoming fill your home with love, peace and joyful new beginnings.",
+    "artwork": "/posts/diwali-ram-sita-ayodhya.webp",
+    "bg": "#071d40",
+    "ink": "#ffe6a7",
+    "font": "Georgia",
+    "artworkTextTop": true,
+    "category": "Festivals",
+    "festival": "Diwali",
+    "aiArt": true,
+    "pattern": -1,
+    "kicker": "RAM & SITA · DIWALI BLESSINGS"
+  },
+  {
+    "id": "diwali-ram-sita-homecoming",
+    "name": "Ram & Sita · A blessed homecoming",
+    "heading": "Welcome the light",
+    "message": "Wishing your family a Diwali of togetherness, warm reunions and the blessings of Ram and Sita.",
+    "artwork": "/posts/diwali-ram-sita-ayodhya.webp",
+    "bg": "#071d40",
+    "ink": "#ffe6a7",
+    "font": "Verdana",
+    "artworkTextTop": true,
+    "category": "Festivals",
+    "festival": "Diwali",
+    "aiArt": true,
+    "pattern": -1,
+    "kicker": "RAM & SITA · DIWALI BLESSINGS"
+  },
+  {
+    "id": "diwali-ram-sita-lotus",
+    "name": "Ram & Sita · Lotus blessings",
+    "heading": "Shubh Deepavali",
+    "message": "May Ram and Sita bless your family with harmony, kindness and happiness this beautiful Deepavali.",
+    "artwork": "/posts/diwali-ram-sita-lotus.webp",
+    "bg": "#fff2d7",
+    "ink": "#733923",
+    "font": "Georgia",
+    "artworkTextTop": true,
+    "category": "Festivals",
+    "festival": "Diwali",
+    "aiArt": true,
+    "pattern": -1,
+    "kicker": "RAM & SITA · DIWALI BLESSINGS"
+  },
+  {
+    "id": "diwali-ram-sita-peace",
+    "name": "Ram & Sita · Peace and prosperity",
+    "heading": "Love, light & peace",
+    "message": "May every diya welcome hope, every prayer bring peace and every moment with loved ones become a treasured memory.",
+    "artwork": "/posts/diwali-ram-sita-lotus.webp",
+    "bg": "#fff2d7",
+    "ink": "#733923",
+    "font": "Verdana",
+    "artworkTextTop": true,
+    "category": "Festivals",
+    "festival": "Diwali",
+    "aiArt": true,
+    "pattern": -1,
+    "kicker": "RAM & SITA · DIWALI BLESSINGS"
+  }
+];
+export const templates:Template[] = [...ramSitaTemplates,...readyTemplates,...businessTemplates,...invitationTemplates,...faithTemplates,...motionTemplates,...expandedAiTemplates,...aiTemplates,...festivalTemplates,...originalTemplates];
 export function isTemplateId(id:unknown):id is string{return typeof id==='string'&&templates.some(t=>t.id===id)}
 export function matchesOccasion(t:Template,occasion:string){return occasion==='All occasions'||t.category===occasion||t.festival===occasion}
 export type Greeting = {socialSize?:'original'|'square'|'portrait'|'story';language?:'en'|'hi'|'pa';side?:'front'|'back';back?:{heading:string;message:string;website:string};rsvpEmail?:string;positions?:Partial<Record<'text'|'photo'|'qr',{x:number;y:number}>>;logoScale?:number;qr?:{mode:'url'|'whatsapp'|'map'|'contact';value:string};details?:{role?:string;phone?:string;email?:string;website?:string;address?:string;date?:string;time?:string;venue?:string;rsvp?:string};templateId:string;name:string;message:string;sender:string;bg:string;font:string;layout:string;branding:boolean;photo?:string;heading?:string;headingColor?:string;textColor?:string;headingSize?:number;messageSize?:number;textAlign?:'left'|'center'|'right';photoPlacement?:'top'|'bottom'|'left'|'right'|'middle'|'in-message'|'after-message';photoSize?:number;photoShape?:'circle'|'rounded'|'square';photoZoom?:number;photoX?:number;photoY?:number};

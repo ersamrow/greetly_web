@@ -20,8 +20,9 @@ export function textLines(c:CanvasRenderingContext2D,text:string,width:number){
 
 export async function drawEditable(c:CanvasRenderingContext2D,t:Template,g:Greeting,h:number,defaultColor:string){
   if(t.photoArtwork)h-=480;
-  let left=150,right=930,top=t.photoArtwork?130:240,bottom=h-(t.photoArtwork?30:150);
-  const size=t.photoArtwork?Math.min(g.photoSize??220,140):g.photoSize??220,placement=g.photoPlacement??'top';
+  if(t.artworkTextTop)h-=740;
+  let left=150,right=930,top=t.artworkTextTop?105:t.photoArtwork?130:240,bottom=h-(t.artworkTextTop?15:t.photoArtwork?30:150);
+  const size=t.artworkTextTop?Math.min(g.photoSize??100,100):t.photoArtwork?Math.min(g.photoSize??220,140):g.photoSize??220,placement=g.photoPlacement??'top';
   const inline=!!g.photo&&['middle','in-message','after-message'].includes(placement);
   const paintPhoto=async(px:number,py:number)=>{
     const image=await new Promise<HTMLImageElement>((resolve,reject)=>{const im=new Image();im.onload=()=>resolve(im);im.onerror=()=>reject(Error('Could not load your photo'));im.src=g.photo!});
@@ -35,13 +36,19 @@ export async function drawEditable(c:CanvasRenderingContext2D,t:Template,g:Greet
     const sx=(image.width-crop)*(g.photoX??50)/100,sy=(image.height-crop)*(g.photoY??50)/100;
     c.drawImage(image,sx,sy,crop,crop,px,py,size,size);c.restore();
   };
-  if(inline)top=160;
+  if(inline)top=t.artworkTextTop?105:160;
   if(g.photo&&!inline){
     let px=540-size/2,py=120;
     if(placement==='top'){top=120+size+65}
     if(placement==='bottom'){py=h-125-size;bottom=py-40;top=190}
     if(placement==='left'){px=95;py=(h-size)/2;left=px+size+45;right=985;top=220}
     if(placement==='right'){px=985-size;py=(h-size)/2;left=95;right=px-45;top=220}
+    if(t.artworkTextTop){
+      top=105;
+      if(placement==='top'){py=105;top=py+size+12}
+      if(placement==='bottom'){py=bottom-size;bottom=py-12}
+      if(placement==='left'||placement==='right')py=105;
+    }
     await paintPhoto(px,py);
   }
   const align=g.textAlign??'center',x=align==='left'?left:align==='right'?right:(left+right)/2,width=right-left;

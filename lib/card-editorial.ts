@@ -28,6 +28,7 @@ const patternNotes=[
  'Linked circular accents and a curved flourish give this card a friendly, informal character suited to a conversational note.',
 ];
 function appearance(t:Template){
+ if(t.artworkTextTop)return t.artwork?.includes('ayodhya')?'Ram and Sita stand together against a lamp-lit Ayodhya scene. Golden diyas and a midnight-blue sky give this homecoming design its warmth, with the greeting above the figures.':'Ram and Sita are framed by lotus flowers, marigolds and fine golden details. The ivory background and traditional painted style suit a gentle blessing, with dark lettering above the portrait.';
  if(t.photoArtwork)return 'A photograph of Harmandir Sahib anchors this design. The separate space above the photograph keeps your blessing readable and preserves the temple as the visual focus.';
  if(t.artwork?.includes('diwali'))return 'Glowing diyas, hanging lanterns and a deep evening backdrop frame the central message. The light lettering is designed to stand out against the darker artwork.';
  if(t.artwork?.includes('dussehra'))return 'Warm marigold-inspired artwork surrounds a clear message area. Its celebratory details suit wishes about courage, goodness and the hope of beginning again.';
