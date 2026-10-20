@@ -1,6 +1,8 @@
+import {recordBox} from './editor-geometry';
+import {partText,type TextPart} from './element-positions';
 import type {Greeting,Template} from './templates';
 
-export function hasEditorOptions(g:Greeting){return ['positions','heading','headingColor','textColor','headingSize','messageSize','textAlign','photoPlacement','photoSize','photoShape','photoZoom','photoX','photoY'].some(key=>g[key as keyof Greeting]!==undefined)}
+export function hasEditorOptions(g:Greeting){return !!(g.positions?.text||g.positions?.qr)||['heading','headingColor','textColor','headingSize','messageSize','textAlign','photoPlacement','photoSize','photoShape','photoZoom','photoX','photoY'].some(key=>g[key as keyof Greeting]!==undefined)}
 
 export function textLines(c:CanvasRenderingContext2D,text:string,width:number){
   const lines:string[]=[];
@@ -27,7 +29,8 @@ export async function drawEditable(c:CanvasRenderingContext2D,t:Template,g:Greet
   const paintPhoto=async(px:number,py:number)=>{
     const image=await new Promise<HTMLImageElement>((resolve,reject)=>{const im=new Image();im.onload=()=>resolve(im);im.onerror=()=>reject(Error('Could not load your photo'));im.src=g.photo!});
     px+=g.positions?.photo?.x||0;py+=g.positions?.photo?.y||0;
-    c.save();c.beginPath();
+    const scale=g.elementScales?.photo??1;recordBox(c,{part:'photo',x:px,y:py,width:size*scale,height:size*scale});
+    c.save();c.translate(px,py);c.scale(scale,scale);px=0;py=0;c.beginPath();
     const shape=g.photoShape??'circle';
     if(shape==='circle')c.arc(px+size/2,py+size/2,size/2,0,Math.PI*2);
     else if(shape==='rounded')c.roundRect(px,py,size,size,28);
@@ -53,21 +56,21 @@ export async function drawEditable(c:CanvasRenderingContext2D,t:Template,g:Greet
   }
   const align=g.textAlign??'center',x=align==='left'?left:align==='right'?right:(left+right)/2,width=right-left;
   const heading=g.heading??t.heading;
-  const message=(text:string)=>({text,size:g.messageSize??27,color:g.textColor??defaultColor,gap:28});
+  const message=(text:string)=>({part:'message' as TextPart,text,size:g.messageSize??27,color:g.textColor??defaultColor,gap:28});
   const photoBlock={photo:true,text:'',size:0,color:'',gap:24};
-  const sections:{photo?:boolean;text:string;size:number;color:string;gap:number}[]=[{text:heading,size:g.headingSize??(g.photo?72:100),color:g.headingColor??defaultColor,gap:24},{text:g.name,size:44,color:g.textColor??defaultColor,gap:22}];
+  const sections:{part?:TextPart;photo?:boolean;text:string;size:number;color:string;gap:number}[]=[{part:'heading',text:heading,size:g.headingSize??(g.photo?72:100),color:g.headingColor??defaultColor,gap:24},{part:'name',text:g.name,size:44,color:g.textColor??defaultColor,gap:22}];
   if(inline&&placement==='middle')sections.push(photoBlock);
   if(inline&&placement==='in-message'){
     const words=g.message.trim().split(/\s+/),mid=Math.ceil(words.length/2);
     sections.push(message(words.slice(0,mid).join(' ')),photoBlock,message(words.slice(mid).join(' ')));
   }else sections.push(message(g.message));
   if(inline&&placement==='after-message')sections.push(photoBlock);
-  sections.push({...message(g.sender?'With love, '+g.sender:''),gap:0});
+  sections.push({...message(g.sender?'With love, '+g.sender:''),part:'sender',gap:0});
   const measure=(scale:number)=>sections.filter(s=>s.photo||s.text.length).map(s=>{const fontSize=s.size*scale;c.font=`${fontSize}px ${g.font}`;const lines=s.photo?[]:textLines(c,s.text,width);return {...s,size:fontSize,lines,height:s.photo?size:lines.length*fontSize*1.25,gap:s.photo?24:s.gap*scale}});
   let scale=1,blocks=measure(scale);
   while(blocks.reduce((sum,b)=>sum+b.height+b.gap,0)>bottom-top&&scale>.01){scale*=.9;blocks=measure(scale)}
   c.textAlign=align;c.textBaseline='top';let y=top;
-  for(const block of blocks){if(block.photo){await paintPhoto(540-size/2,y);y+=size+block.gap;continue}c.font=`${block.size}px ${g.font}`;c.fillStyle=block.color;for(const line of block.lines){c.fillText(line,x,y);y+=block.size*1.25}y+=block.gap}
+  for(const block of blocks){if(block.photo){await paintPhoto(540-size/2,y);y+=size+block.gap;continue}c.font=`${block.size}px ${g.font}`;c.fillStyle=block.color;for(const line of block.lines){partText(c,g,block.part!,line,x,y);y+=block.size*1.25}y+=block.gap}
   c.textAlign='center';c.textBaseline='alphabetic';c.fillStyle=g.textColor??defaultColor;c.font='18px Arial';
   c.fillText(t.kicker|| (t.festival==='Dussehra'?'CELEBRATING THE TRIUMPH OF GOOD':t.festival==='Diwali'?'A SEASON OF LOVE AND LIGHT':'A LITTLE SOMETHING, JUST FOR YOU'),540,85,790);
 }

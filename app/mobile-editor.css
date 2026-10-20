@@ -8,12 +8,12 @@
  .compact-editor.editor-modal>h2{font-size:18px;line-height:1.25}
  .compact-editor.editor-modal>p{font-size:12px;line-height:1.35}
  .compact-editor .editor-grid{gap:8px}
- .compact-editor .preview-panel{display:flex;flex-direction:column;gap:3px;padding:6px;max-height:26dvh;flex:0 0 auto;overflow:auto}
+ .compact-editor .preview-panel{display:flex;flex-direction:column;gap:3px;padding:6px;max-height:34dvh;flex:0 0 auto;overflow:auto}
  .compact-editor .preview-panel .movable-card{width:100%}
- .compact-editor .preview-panel canvas{max-width:100%;max-height:17dvh;width:auto;height:auto}
+ .compact-editor .preview-panel canvas{max-width:100%;max-height:14dvh;width:auto;height:auto}
  .compact-editor .preview-panel>span{font-size:10px;text-align:center}
  .compact-editor .preview-panel .preview-size-toggle{min-height:28px;padding:2px 8px;text-align:center;font-size:12px}
- .compact-editor:not(.large-preview) .move-tools,.compact-editor:not(.large-preview) .safe-guide-toggle,.compact-editor:not(.large-preview) .movable-card>small{display:none}
+ .compact-editor:not(.large-preview) .safe-guide-toggle,.compact-editor:not(.large-preview) .movable-card>small{display:none}
  .compact-editor.large-preview .preview-panel{display:flex;max-height:48dvh}
  .compact-editor.large-preview .preview-panel canvas{max-height:28dvh;max-width:100%}
  .compact-editor .move-tools{gap:4px;margin-bottom:5px;justify-content:center}

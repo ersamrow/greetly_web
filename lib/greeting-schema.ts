@@ -2,9 +2,13 @@ import {z} from 'zod';
 import {isTemplateId} from './templates';
 const colour=z.string().regex(/^#[0-9a-fA-F]{6}$/);
 const position=z.object({x:z.number().finite().min(-1080).max(1080),y:z.number().finite().min(-1440).max(1440)});
+const elementScale=z.number().finite().min(.5).max(2);
 export const greetingSchema=z.object({
+  senderStyle:z.object({treatment:z.enum(['badge','plain','signature','outline','banner']).optional(),prefix:z.enum(['From','With love,','Best wishes,','']).optional(),font:z.enum(['Georgia','Arial','Verdana','Courier New','Noto Sans Devanagari','Noto Sans Gurmukhi']).optional(),size:z.number().finite().min(20).max(80).optional(),color:colour.optional(),background:colour.optional(),opacity:z.number().finite().min(0).max(100).optional()}).optional(),
+  elementScales:z.object({heading:elementScale.optional(),message:elementScale.optional(),name:elementScale.optional(),sender:elementScale.optional(),photo:elementScale.optional()}).optional(),
+  creatorPost:z.boolean().optional(),portraitScale:z.number().finite().min(70).max(120).optional(),
   socialSize:z.enum(['original','square','portrait','story']).optional(),language:z.enum(['en','hi','pa']).optional(),side:z.enum(['front','back']).optional(),back:z.object({heading:z.string().max(90),message:z.string().max(300),website:z.string().max(100)}).optional(),rsvpEmail:z.string().email().max(120).optional(),
-  positions:z.object({text:position.optional(),photo:position.optional(),qr:position.optional()}).optional(),
+  positions:z.object({heading:position.optional(),message:position.optional(),name:position.optional(),sender:position.optional(),text:position.optional(),photo:position.optional(),qr:position.optional()}).optional(),
   logoScale:z.number().finite().min(50).max(120).optional(),
   qr:z.object({mode:z.enum(['url','whatsapp','map','contact']),value:z.string().max(400)}).optional(),
   details:z.object({role:z.string().max(60).optional(),phone:z.string().max(40).optional(),email:z.string().max(80).optional(),website:z.string().max(100).optional(),address:z.string().max(140).optional(),date:z.string().max(40).optional(),time:z.string().max(50).optional(),venue:z.string().max(140).optional(),rsvp:z.string().max(120).optional()}).optional(),

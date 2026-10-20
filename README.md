@@ -1,5 +1,46 @@
 # vinext-starter
 
+## Creator photo posts
+
+In a greeting's Photo tab, upload a portrait with automatic background removal
+enabled (the default). The browser downloads MediaPipe Tasks Vision 0.10.32
+WASM from jsDelivr and Google's Selfie Segmenter model on first use. Photo pixels
+are processed locally, with no background-removal API key or server upload.
+Initial processing requires internet access. A clear, well-lit single-person
+portrait gives the best results; hair and complex backgrounds may be imperfect.
+
+Creator post layout places the transparent portrait beside the greeting and
+prints the sender's name at the bottom. Portrait scale and the existing drag
+controls adjust placement. The preview's Move menu selects the heading, message,
+recipient name, creator/sender name or photo independently. Drag, arrow buttons
+and keyboard arrows adjust the selected element; Reset selected resets only that
+element. All text together preserves the existing grouped movement.
+Individual positions survive drafts, sharing and downloads.
+Click text or a portrait on the preview to select it. The selection outline is
+measured by the same renderer used for exports, including fitted social formats.
+Drag its corner handle to resize from 50–200%, or use the accessible Size slider
+and keyboard arrows on the handle. Each text section and portrait resizes
+independently. Resize settings persist with the greeting. While dragging, edges
+and centres snap to the card or other elements and show alignment guides; hold
+Alt to bypass snapping. Selection outlines and guides never appear in downloads.
+On phones, use the size slider in the compact preview; Larger preview also shows
+the corner handle without crowding small text.
+Under Photo → From / name style, choose a compact badge (the default), plain
+text, an italic signature, an outline or a full-width strip. Set the prefix
+(including name only), font, 20–80 px name size, text/background colours and
+badge opacity independently of the greeting. The badge fits the name rather
+than spanning the portrait, and these settings persist in saved greetings.
+Disable automatic removal to upload an already
+transparent PNG, then enable Creator post layout. Undo restores prior edits.
+Drafts and saved links preserve the layout, and the shared renderer supports
+PNG, social formats, video and print. Business logos and invitations retain
+their existing upload flow.
+
+Run `node scripts/test-creator.mjs` for browser rendering and schema checks.
+Set `PORTRAIT_TEST_IMAGE` to a local portrait to additionally exercise real
+segmentation; `CHROME_PATH` can select a Chrome executable. Test images are
+written only to the ignored `.local-tests/` directory.
+
 Deploying Greetly on Hostinger? Follow [HOSTINGER.md](./HOSTINGER.md) for the
 Next.js build command and MySQL setup. `npm run build` now targets Hostinger;
 use `npm run build:sites` for the Sites build described below.

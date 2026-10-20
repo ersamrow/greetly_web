@@ -72,7 +72,7 @@ footer p{color:#60636b}
 .compact-editor .preview-panel{background:#f6f6f4;border:1px solid #f6f6f4;border-radius:12px}
 .compact-editor .editor-tabs{padding:5px}
 .compact-editor .editor-tabs button{min-height:44px}
-.compact-editor .editor-controls input:not([type=color]):not([type=range]),.compact-editor .editor-controls textarea{border-radius:8px;min-height:44px}
+.compact-editor .editor-controls input:not([type=color]):not([type=range]):not([type=checkbox]):not([type=file]),.compact-editor .editor-controls textarea{border-radius:8px;min-height:44px}
 .compact-editor .switch-label{font-size:14px!important;line-height:1.4}
 .primary,.secondary{min-height:44px;border-radius:8px}
 @media(max-width:1100px){

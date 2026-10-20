@@ -1,7 +1,8 @@
 'use client';
 import {useEffect,useRef} from 'react';
+import {getGeometry,type EditorGeometry} from '@/lib/editor-geometry';
 import {draw} from '@/lib/draw';import {drawMotion} from '@/lib/motion';import {Template,Greeting,defaultGreeting} from '@/lib/templates';
-export default function Card({template,greeting,paused=false}:{template:Template;greeting?:Greeting;paused?:boolean}){
+export default function Card({template,greeting,paused=false,onGeometry}:{template:Template;greeting?:Greeting;paused?:boolean;onGeometry?:(geometry:EditorGeometry)=>void}){
   const ref=useRef<HTMLCanvasElement>(null);
   useEffect(()=>{
     let cancelled=false,frame=0,visible=false,ready=false,last=0;
@@ -12,8 +13,8 @@ export default function Card({template,greeting,paused=false}:{template:Template
     const sync=()=>{cancelAnimationFrame(frame);if(!ready||cancelled)return;paint();if(template.motion&&!paused&&!reduced.matches&&visible&&!document.hidden)frame=requestAnimationFrame(animate)};
     const observer=new IntersectionObserver(([entry])=>{visible=entry.isIntersecting;sync()});observer.observe(canvas);
     reduced.addEventListener('change',sync);document.addEventListener('visibilitychange',sync);
-    void draw(buffer,template,greeting||defaultGreeting(template)).then(()=>{if(cancelled)return;canvas.width=buffer.width;canvas.height=buffer.height;ready=true;sync()}).catch(()=>{});
+    void draw(buffer,template,greeting||defaultGreeting(template)).then(()=>{if(cancelled)return;canvas.width=buffer.width;canvas.height=buffer.height;ready=true;onGeometry?.(getGeometry(buffer));sync()}).catch(()=>{});
     return()=>{cancelled=true;cancelAnimationFrame(frame);observer.disconnect();reduced.removeEventListener('change',sync);document.removeEventListener('visibilitychange',sync)};
-  },[template,greeting,paused]);
+  },[template,greeting,paused,onGeometry]);
   return <canvas ref={ref} className="greeting-canvas" width={1080} height={template.kind==='business'?648:(greeting||defaultGreeting(template)).layout==='vertical'?1440:1080} aria-label={`${template.motion?'Animated ':''}${template.faith||template.festival||template.category}: ${(greeting?.heading??template.heading).replaceAll('\n',' ')}`} role="img"/>;
 }
