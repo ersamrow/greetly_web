@@ -26,9 +26,9 @@ const loadRoute = path => import(moduleUrl(read(path)
   .replaceAll("'@/lib/content-dates'",JSON.stringify(moduleUrl(read('lib/content-dates.ts'))))));
 const { default: sitemap } = await loadRoute('app/sitemap.ts');
 const urls = sitemap().map(entry => entry.url);
-assert.equal(urls.length, Object.keys(collections).length + indexableTemplates.length + 1);
+assert.equal(urls.length, Object.keys(collections).length + indexableTemplates.length + 4);
 assert.equal(new Set(urls).size, urls.length);
-assert.deepEqual(urls, ['/', ...Object.keys(collections).map(slug => `/occasions/${slug}`), ...indexableTemplates.map(cardPath)].map(path => origin + path));
+assert.deepEqual(urls, ['/', '/about', '/help', '/contact', ...Object.keys(collections).map(slug => `/occasions/${slug}`), ...indexableTemplates.map(cardPath)].map(path => origin + path));
 assert.equal(new Set(templates.map(t=>t.name)).size,templates.length,'Template names must be unique');
 for(const id of featuredIds)assert(templates.some(t=>t.id===id),'Featured card exists');
 for(const t of templates){assert(collectionFor(t),'Card has a parent collection');for(const suffix of ['-320.webp','-640.webp','-social.jpg'])assert(fs.existsSync(`public/previews/${t.id}${suffix}`),`Missing preview ${t.id}${suffix}`);}
@@ -90,3 +90,6 @@ const verified=await import(moduleUrl(seoSource.replace('const env = {};',"const
 assert.deepEqual(verified.siteVerification(),{google:'google-token',other:{'msvalidate.01':'bing-token'}});
 console.log('SEO additions passed: 60 descriptive slugs, unique short descriptions, substantive card copy, canonical groups, dates and verification tokens.');
 console.log('Card description lengths:',Math.min(...templates.map(t=>cardDescription(t).length)),Math.max(...templates.map(t=>cardDescription(t).length)));
+
+for(let i=1;i<=60;i++){const t=templates.find(t=>t.id===`g${i}`);const target=canonicalCard(t);assert.equal(target.pattern,t.pattern);assert.equal(target.heading,t.heading);assert.equal(target.message,t.message);assert.equal(target.category,t.category);}
+assert.equal(indexableTemplates.filter(t=>/^g\d+$/.test(t.id)).length,30);

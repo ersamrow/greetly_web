@@ -30,8 +30,9 @@ export default async function CardPage({params}:{params:Promise<{slug:string}>})
   <section><h2>Who this card suits</h2><p>{copy.audience}</p><p>{copy.design}</p></section>
   <section><h2>{t.kind==='business'?'Sample service lines':'Message ideas for this card'}</h2><ul className="card-message-ideas">{copy.examples.map(message=><li key={message}>{message}</li>)}</ul></section>
   <section><h2>Make it personal</h2><p>{copy.personalisation}</p><p>{copy.sharing}</p></section>
-  {canonical.id!==t.id&&<p>This is an alternate edition of <a href={cardPath(canonical)}>{canonical.name}</a>. Compare the original wording and style before choosing.</p>}
+  {canonical.id!==t.id&&<p>This is an alternate edition of <a href={cardPath(canonical)}>{canonical.name}</a>. Compare its wording and layout before choosing your colours.</p>}
   <section><h2>Related cards</h2><ul className="related-card-links">{related.map(other=><li key={other.id}><a href={cardPath(other)}>{other.name}</a><span>{other.motion?'Animated':'Still'} · {other.festival||other.occasion||other.category}</span></li>)}</ul></section>
+  <p><a href="/help">Help with downloads and sharing</a> · <a href="/contact">Contact Greetlo</a></p>
   <a href={`/occasions/${slug}`}>View all {collection.category.toLowerCase()} designs</a>
  </main>;
 }

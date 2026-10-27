@@ -7,6 +7,7 @@ export default function sitemap():MetadataRoute.Sitemap{
  const base=getSiteUrl();if(!base)return [];
  return [
   {url:base.href,lastModified:homeLastModified},
+  ...['/about','/help','/contact'].map(path=>({url:new URL(path,base).href,lastModified:homeLastModified})),
   ...Object.keys(collections).map(slug=>({url:new URL(`/occasions/${slug}`,base).href,lastModified:collectionLastModified})),
   ...indexableTemplates.map(t=>({url:new URL(cardPath(t),base).href,lastModified:cardEditorialLastModified})),
  ];

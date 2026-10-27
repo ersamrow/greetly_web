@@ -193,6 +193,19 @@ The portable build runs Vinext directly without a host `timeout` command. The ma
 
 ## Card discovery and search metadata
 
+The Birthday, Love, Thank you, Invitations, Diwali and Visiting cards collections
+include recipient-specific examples and practical guidance in
+`lib/collection-guides.ts`. `/help`, `/about` and `/contact` provide usage,
+ownership and support information. The public support address is
+`support@greetlo.in`; verify that the mailbox receives mail before deployment.
+Review examples and tool instructions when product behaviour changes, and update
+the relevant content date only after a substantive change.
+
+Generated `g1`–`g60` designs are grouped into 30 canonical pages by matching
+category, pattern, heading and message. All design URLs and editing remain
+available; only representative pages appear in the sitemap. Canonical tags are
+search-engine hints, not redirects or guarantees of indexing or AdSense approval.
+
 Card tiles link to their detail pages; the Personalise button opens the editor as
 an action. Card pages contain contextual copy, three example messages and related
 cards. `lib/card-editorial.ts` owns that copy. Alternate faith “Warm wishes”

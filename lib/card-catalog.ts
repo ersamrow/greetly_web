@@ -8,8 +8,13 @@ export const cardPath = (template: Template) => `/card/${cardSlug(template)}`;
 export const templateForSlug=(slug:string)=>templates.find(t=>cardSlug(t)===slug);
 // Explicit editorial groups only: alternate typography/message editions retain their editor,
 // but consolidate search signals into the original faith-card page.
-export const canonicalCard=(template:Template)=>template.id.endsWith('-warm-wishes')
- ? templates.find(t=>t.id===template.id.replace(/-warm-wishes$/, ''))||template : template;
+export function canonicalCard(template:Template):Template {
+ if(template.id.endsWith('-warm-wishes'))return templates.find(t=>t.id===template.id.replace(/-warm-wishes$/, ''))||template;
+ // Generated colour editions share the same layout and wording. Keep their
+ // editor URLs, but consolidate each matching pair into its first edition.
+ if(/^g\d+$/.test(template.id))return templates.find(t=>/^g\d+$/.test(t.id)&&t.category===template.category&&t.pattern===template.pattern&&t.heading===template.heading&&t.message===template.message)||template;
+ return template;
+}
 export const indexableTemplates=templates.filter(t=>canonicalCard(t).id===t.id);
 export function cardDescription(t:Template){
  const type=t.kind==='business'?'visiting':t.kind==='invitation'?'invitation':'greeting';
