@@ -20,6 +20,7 @@ return <>
 <Share2 size={18}/> {selected.motion?'Share animated link':'Share greeting'}</button>
 <button className="secondary" disabled={busy} onClick={download}>
 <Download size={18}/> {selected.motion?'Download still PNG':'Download image'}</button>
+{savedLink&&<label>Saved greeting link<input readOnly aria-label="Saved greeting link" value={savedLink} onFocus={e=>e.target.select()}/><small>Select and copy this link if your device cannot open the share menu.</small></label>}
 <details className="more-formats">
 <summary>More formats and links</summary>
 <div className="more-formats-content">
@@ -40,6 +41,7 @@ return <>
 </>}</div>
 </details>
 <small>Sharing or copying a link uploads this greeting and its photo. Anyone with the link can view it. Delete saved links from Privacy.</small>
+<p><a href="mailto:support@greetlo.in?subject=Card%20creation%20feedback">Tell us what worked or went wrong</a><small>Include your device and browser, but no private photos or deletion keys.</small></p>
 <button disabled={busy} onClick={()=>setPreview(false)}>Back to editing</button>
 </>;
 }

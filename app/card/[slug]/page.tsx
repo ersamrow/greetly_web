@@ -2,13 +2,13 @@
 import Link from 'next/link';
 import {notFound} from 'next/navigation';
 import {templates} from '@/lib/templates';
-import {cardPath,cardSlug,cardDescription,collectionFor,templateForSlug,canonicalCard,relatedCards} from '@/lib/card-catalog';
+import {cardPath,cardSlug,cardDescription,collectionFor,templateForSlug,canonicalCard,relatedCards,isCollectionDesign} from '@/lib/card-catalog';
 import {cardEditorial} from '@/lib/card-editorial';
 import {pageMetadata,getSiteUrl,serializeJsonLd} from '@/lib/seo';
 import PersonaliseCard from '../personalise-card';
 import './card-detail.css';
 
-export function generateStaticParams(){return templates.map(t=>({slug:cardSlug(t)}));}
+export function generateStaticParams(){return templates.filter(t=>!isCollectionDesign(t)).map(t=>({slug:cardSlug(t)}));}
 async function findTemplate(params:Promise<{slug:string}>){const {slug}=await params;const t=templateForSlug(slug);if(!t)notFound();return t;}
 export async function generateMetadata({params}:{params:Promise<{slug:string}>}){
  const t=await findTemplate(params);

@@ -5,6 +5,9 @@ import {collections} from './collections';
 // Saved greetings and preview filenames keep their IDs; only public slugs change.
 export const cardSlug=(template:Template)=>legacyCards[template.id as keyof typeof legacyCards]?.slug||template.id;
 export const cardPath = (template: Template) => `/card/${cardSlug(template)}`;
+export const isCollectionDesign = (template:Template) => /^g\d+$/.test(template.id);
+export const editorPath = (template:Template) => `/occasions/${collectionFor(template)[0]}?template=${encodeURIComponent(template.id)}`;
+export const browsePath = (template:Template) => isCollectionDesign(template)?editorPath(template):cardPath(template);
 export const templateForSlug=(slug:string)=>templates.find(t=>cardSlug(t)===slug);
 // Explicit editorial groups only: alternate typography/message editions retain their editor,
 // but consolidate search signals into the original faith-card page.
@@ -15,7 +18,7 @@ export function canonicalCard(template:Template):Template {
  if(/^g\d+$/.test(template.id))return templates.find(t=>/^g\d+$/.test(t.id)&&t.category===template.category&&t.pattern===template.pattern&&t.heading===template.heading&&t.message===template.message)||template;
  return template;
 }
-export const indexableTemplates=templates.filter(t=>canonicalCard(t).id===t.id);
+export const indexableTemplates=templates.filter(t=>!isCollectionDesign(t)&&canonicalCard(t).id===t.id);
 export function cardDescription(t:Template){
  const type=t.kind==='business'?'visiting':t.kind==='invitation'?'invitation':'greeting';
  const starts=[`Create a free ${t.motion?'animated ':''}${type} card.`,`Personalise this free ${t.motion?'animated ':''}${type} card online.`];

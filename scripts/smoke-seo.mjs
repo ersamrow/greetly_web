@@ -4,7 +4,7 @@ const base=process.env.TEST_BASE_URL||'http://127.0.0.1:3000';
 async function html(path){const r=await fetch(base+path,{signal:AbortSignal.timeout(20000)});assert.equal(r.status,200,path);return r.text();}
 const home=await html('/');
 assert.match(home,/<h2[^>]*>Free personalised greeting cards/);
-assert((home.match(/href="\/card\//g)||[]).length>=12,'Homepage has crawlable card links');
+assert((home.match(/href="\/card\//g)||[]).length>=8,'Homepage has crawlable card links');
 assert(!home.includes('href="/admin"'),'No public admin link');
 assert(home.includes('"@type":"Organization"')&&home.includes('"@type":"WebSite"'));
 const sitemap=await html('/sitemap.xml'),paths=[...sitemap.matchAll(/<loc>(.*?)<\/loc>/g)].map(m=>new URL(m[1]).pathname);
@@ -12,7 +12,7 @@ assert(paths.filter(p=>p.startsWith('/card/')).length>0);
 for(const page of ['/about','/help','/contact'])assert(paths.includes(page));
 assert.equal((sitemap.match(/<lastmod>/g)||[]).length,paths.length);
 assert(!paths.some(p=>/^\/card\/g\d+$/.test(p)));
-for(const [id,card] of Object.entries(JSON.parse(fs.readFileSync('lib/legacy-cards.json','utf8')))){const r=await fetch(base+'/card/'+id,{redirect:'manual'});assert.equal(r.status,301,id);assert.equal(new URL(r.headers.get('location'),base).pathname,'/card/'+card.slug);await r.body?.cancel();}
+for(const [id,card] of Object.entries(JSON.parse(fs.readFileSync('lib/legacy-cards.json','utf8')))){const r=await fetch(base+'/card/'+id,{redirect:'manual'});assert.equal(r.status,301,id);const destination=new URL(r.headers.get('location'),base);assert(destination.pathname.startsWith('/occasions/'));assert.equal(destination.searchParams.get('template'),id);await r.body?.cancel();const descriptive=await fetch(base+'/card/'+card.slug,{redirect:'manual'});assert.equal(descriptive.status,301);assert.equal(descriptive.headers.get('location'),r.headers.get('location'));await descriptive.body?.cancel();assert(!paths.includes('/card/'+card.slug));}
 for(const path of paths){
   const source=path==='/'?home:await html(path),head=source.split('</head>')[0];
   assert.match(head,/<title>[^<]+<\/title>/,path);
@@ -25,7 +25,7 @@ for(const path of paths){
   const response=await fetch(base+new URL(image).pathname);assert.equal(response.status,200,image);assert.match(response.headers.get('content-type'),/image\/jpeg/);await response.arrayBuffer();
   if(path.startsWith('/card/')||path.startsWith('/occasions/'))assert(source.includes('"@type":"BreadcrumbList"'),path);
   if(path.startsWith('/card/')){assert.match(source,/Personalise this card/);assert((source.match(/<h2/g)||[]).length>=3);assert(source.includes('Related cards'));}
-  if(path.startsWith('/occasions/')){assert(source.includes('\"@type\":\"ItemList\"'));assert.match(source,/href="\/card\//);}
+  if(path.startsWith('/occasions/')){assert(source.includes('\"@type\":\"ItemList\"'));assert.match(source,/href="\/(?:card|occasions)\//);}
 }
 const alternate=await html('/card/hindu-diwali-warm-wishes');assert.match(alternate,/<link rel="canonical" href="https:\/\/greetlo.in\/card\/hindu-diwali"/);
 const robots=await html('/robots.txt');assert.match(robots,/Disallow: \/admin/);assert.match(robots,/Sitemap: https?:\/\//);

@@ -71,3 +71,8 @@ assert.equal((await recordEvent(post('/api/events', { action: 'share', templateI
 assert.equal(writes.length, 2, 'Rejected origins must not write to storage');
 assert.equal((await createGreeting(post('/api/greetings', {}))).status, 400);
 console.log('Origin checks passed: proxy HTTPS, direct/local clients, hostile origins, spoofed headers, greeting creation and analytics routes.');
+
+for(const action of ['copy','download_error','link_error','share_error'])assert.equal((await recordEvent(post('/api/events',{action,templateId:payload.templateId}))).status,204);
+assert.equal((await recordEvent(post('/api/events',{action:'private-message',templateId:payload.templateId}))).status,400);
+assert.equal((await recordEvent(post('/api/events',{action:'copy',templateId:'missing-template'}))).status,400);
+console.log('Failure and clipboard events accepted; unknown actions and templates rejected.');

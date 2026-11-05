@@ -11,7 +11,7 @@ const faithUrl = moduleUrl(read('lib/faith-templates.ts'));
 const templatesUrl = moduleUrl(read('lib/templates.ts').replaceAll("'./faith-templates'", JSON.stringify(faithUrl)));
 const catalogUrl = moduleUrl(read('lib/card-catalog.ts').replace("import legacyCards from './legacy-cards.json';",'const legacyCards = '+read('lib/legacy-cards.json')+';').replaceAll("'./templates'", JSON.stringify(templatesUrl)).replaceAll("'./collections'", JSON.stringify(collectionsUrl)));
 const {templates} = await import(templatesUrl);
-const {cardPath,cardSlug,cardDescription,canonicalCard,indexableTemplates,templateForSlug,collectionFor,collectionPreview,featuredIds} = await import(catalogUrl);
+const {cardPath,cardSlug,cardDescription,canonicalCard,indexableTemplates,templateForSlug,collectionFor,collectionPreview,featuredIds,browsePath,editorPath,isCollectionDesign} = await import(catalogUrl);
 const seoSource = read('lib/seo.ts').replace("import { env } from '@/lib/runtime-env';", 'const env = {};');
 const seoUrl = moduleUrl(seoSource);
 const seo = await import(seoUrl);
@@ -72,7 +72,7 @@ for(const [id,entry] of Object.entries(legacy)){
  const t=templates.find(t=>t.id===id);assert.equal(t.name,entry.name);assert.equal(cardSlug(t),entry.slug);assert.equal(templateForSlug(entry.slug).id,id);
 }
 assert.match(read('next.config.ts'),/statusCode:301/);
-assert.match(read('app/studio.tsx'),/href=\{cardPath\(t\)\}/);
+assert.match(read('app/studio.tsx'),/href=\{browsePath\(t\)\}/);
 assert(!read('app/studio.tsx').includes('href={`?template='));
 assert.equal(new Set(templates.map(cardDescription)).size,templates.length,'Descriptions are unique');
 for(const t of templates){
@@ -92,4 +92,8 @@ console.log('SEO additions passed: 60 descriptive slugs, unique short descriptio
 console.log('Card description lengths:',Math.min(...templates.map(t=>cardDescription(t).length)),Math.max(...templates.map(t=>cardDescription(t).length)));
 
 for(let i=1;i<=60;i++){const t=templates.find(t=>t.id===`g${i}`);const target=canonicalCard(t);assert.equal(target.pattern,t.pattern);assert.equal(target.heading,t.heading);assert.equal(target.message,t.message);assert.equal(target.category,t.category);}
-assert.equal(indexableTemplates.filter(t=>/^g\d+$/.test(t.id)).length,30);
+assert.equal(indexableTemplates.filter(t=>/^g\d+$/.test(t.id)).length,0);
+
+for(const t of templates.filter(isCollectionDesign)){assert(!urls.includes(origin+cardPath(t)));const url=new URL(browsePath(t),origin);assert.equal(url.pathname,'/occasions/'+collectionFor(t)[0]);assert.equal(url.searchParams.get('template'),t.id);assert.equal(browsePath(t),editorPath(t));}
+const {messageStarter}=await import(moduleUrl(read('lib/message-starters.ts')));
+for(const t of templates)for(const language of ['hi','pa']){const value=messageStarter(t,language);if(value){assert(value.message.length<=200);assert(value.heading.length<=90);}}

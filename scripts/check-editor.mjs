@@ -15,7 +15,9 @@ for(const id of ['business-rose','invite-wedding']){
   assert.deepEqual(greetingSchema.parse(JSON.parse(JSON.stringify(greeting))),greeting,'Business and invitation details survive saving');
   assert(!greetingSchema.safeParse({...greeting,details:{venue:'x'.repeat(141)}}).success,'Venue length is bounded');
 }
-const {drawEditable}=await import(asModule(fs.readFileSync('lib/editor-layout.ts','utf8')));
+const geometryUrl=asModule(fs.readFileSync('lib/editor-geometry.ts','utf8'));
+const positionsUrl=asModule(fs.readFileSync('lib/element-positions.ts','utf8').replace("'./editor-geometry'",JSON.stringify(geometryUrl)));
+const {drawEditable}=await import(asModule(fs.readFileSync('lib/editor-layout.ts','utf8').replace("'./editor-geometry'",JSON.stringify(geometryUrl)).replace("'./element-positions'",JSON.stringify(positionsUrl))));
 const base=defaultGreeting(templates[0]);
 const extended={...base,socialSize:'story',language:'pa',font:'Noto Sans Gurmukhi',side:'back',back:{heading:'Brand',message:'Services',website:'example.com'},rsvpEmail:'host@example.com'};
 assert.deepEqual(greetingSchema.parse(extended),extended,'All new creation settings survive sharing');
@@ -23,7 +25,7 @@ assert(!greetingSchema.safeParse({...base,rsvpEmail:'not-an-email'}).success);
 const positions={text:{x:20,y:-30},photo:{x:-40,y:50},qr:{x:10,y:20}};
 assert.deepEqual(greetingSchema.parse({...base,positions}).positions,positions,'Element positions survive saving');
 assert(!greetingSchema.safeParse({...base,positions:{text:{x:Infinity,y:0}}}).success);
-const {positionedText}=await import(asModule(fs.readFileSync('lib/element-positions.ts','utf8')));
+const {positionedText}=await import(positionsUrl);
 const textCalls=[],context={fillStyle:'red',fillText(...args){textCalls.push(args)}};
 const positioned=positionedText(context,{...base,positions},'Photo credit');
 positioned.fillText('Hello',100,200);positioned.fillText('made with greetlo',100,200);positioned.fillText('Photo credit',100,200);positioned.fillStyle='blue';
@@ -56,8 +58,9 @@ globalThis.Image=class{width=1200;height=800;set src(value){queueMicrotask(()=>t
 for(const h of [1080,1440])for(const placement of ['top','bottom','left','right','middle','in-message','after-message']){
   assert.equal(greetingSchema.parse({...base,photoPlacement:placement}).photoPlacement,placement,'Every placement must survive saving');
   const draws=[],photos=[];
-  const c={font:'',fillStyle:'',textAlign:'',save(){},restore(){},beginPath(){},arc(){},roundRect(){},rect(){},clip(){},measureText(text){return {width:[...text].length*parseFloat(this.font)*.55}},fillText(text,x,y){draws.push({text,x,y,size:parseFloat(this.font)})},drawImage(...args){photos.push(args)}};
-  await drawEditable(c,templates[0],{...edited,photo:'test',photoPlacement:placement,message:'A'.repeat(200),name:'B'.repeat(35),sender:'C'.repeat(35)},h,'#123456');
+  const stack=[];let transform={x:0,y:0,s:1};
+  const c={font:'',fillStyle:'',textAlign:'',save(){stack.push({...transform,font:this.font})},restore(){const prior=stack.pop();this.font=prior.font;transform={x:prior.x,y:prior.y,s:prior.s}},translate(x,y){transform.x+=x*transform.s;transform.y+=y*transform.s},scale(x,y){assert.equal(x,y);transform.s*=x},beginPath(){},arc(){},roundRect(){},rect(){},clip(){},measureText(text){return {width:[...text].length*parseFloat(this.font)*.55}},fillText(text,x,y){draws.push({text,x,y,size:parseFloat(this.font)})},drawImage(...args){args[5]=transform.x+args[5]*transform.s;args[6]=transform.y+args[6]*transform.s;args[7]*=transform.s;args[8]*=transform.s;photos.push(args)}};
+  await drawEditable(c,templates.find(t=>t.id==='g1'),{...edited,photo:'test',photoPlacement:placement,message:'A'.repeat(200),name:'B'.repeat(35),sender:'C'.repeat(35)},h,'#123456');
   assert(draws.every(d=>Number.isFinite(d.x)&&Number.isFinite(d.y)&&d.y<h-85),'Text must fit inside card');
   const [,sx,sy,sw,sh,px,py,pw,ph]=photos[0];
   assert(sx>=0&&sy>=0&&sx+sw<=1200&&sy+sh<=800,'Crop must stay in source photo');

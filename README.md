@@ -201,13 +201,15 @@ ownership and support information. The public support address is
 Review examples and tool instructions when product behaviour changes, and update
 the relevant content date only after a substantive change.
 
-Generated `g1`–`g60` designs are grouped into 30 canonical pages by matching
-category, pattern, heading and message. All design URLs and editing remain
-available; only representative pages appear in the sitemap. Canonical tags are
-search-engine hints, not redirects or guarantees of indexing or AdSense approval.
+Generated `g1`–`g60` designs now belong to their occasion collections. Both old
+ID URLs and descriptive card URLs permanently redirect directly to the relevant
+collection with the original template selected. The 60 designs remain editable;
+none has a separate sitemap entry. Collection canonicals omit editor query strings.
+Distinct artwork and other independently authored designs retain detail pages.
 
-Card tiles link to their detail pages; the Personalise button opens the editor as
-an action. Card pages contain contextual copy, three example messages and related
+Card tiles open the editor directly; their link destinations remain available for
+new-tab and no-JavaScript navigation. Collection guide examples within the editor
+message limit can start a card directly. Card pages contain contextual copy, three example messages and related
 cards. `lib/card-editorial.ts` owns that copy. Alternate faith “Warm wishes”
 editions canonicalise to the original; general Diwali and Hindu Deepavali cards
 retain distinct URLs because they serve different messages and audiences.
